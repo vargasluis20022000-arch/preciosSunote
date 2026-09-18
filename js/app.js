@@ -374,7 +374,10 @@ function viewCatalog() {
         <html lang="es">
         <head>
             <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Catálogo de Llantas SUNOTE</title>
+            <link rel="icon" type="image/png" href="img/favicon-puma.png">
+            <link rel="shortcut icon" href="favicon.ico">
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
                 * { box-sizing: border-box; }
@@ -576,7 +579,10 @@ function generarProforma() {
         <html lang="es">
         <head>
             <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Proforma Comercial - ${docNum}</title>
+            <link rel="icon" type="image/png" href="img/favicon-puma.png">
+            <link rel="shortcut icon" href="favicon.ico">
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
                 * { box-sizing: border-box; }
