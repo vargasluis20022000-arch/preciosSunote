@@ -173,9 +173,19 @@ function renderGrid() {
     if (!grid) return;
     grid.innerHTML = '';
 
+    const stripAccents = str => (str || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const query = stripAccents(searchTerm.toLowerCase().trim());
+    const queryNormalized = query.replace(/[\/\-\s]+/g, '');
+
     const filteredProducts = productosData.filter(p => {
-        const matchesSearch = p.modelo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            p.descripcion.toLowerCase().includes(searchTerm.toLowerCase());
+        // Búsqueda integral: modelo, tamaño/medida, PR y descripción (sin importar acentos, barras o espacios)
+        const searchableText = stripAccents(`${p.modelo} ${p.tamanos} ${p.pr} ${p.descripcion}`.toLowerCase());
+        const searchableNormalized = searchableText.replace(/[\/\-\s]+/g, '');
+
+        const matchesSearch = !query || 
+            searchableText.includes(query) || 
+            searchableNormalized.includes(queryNormalized);
+
         const matchesSize = sizeFilter === 'All' || p.tamanos === sizeFilter;
         return matchesSearch && matchesSize;
     });
