@@ -1,252 +1,1602 @@
-<!DOCTYPE html>
-<html lang="es">
+/* ==========================================================================
+   SUNOTE LLANTAS - ESTILOS PRINCIPALES (T/C EN VIVO Y PRECIOS PROTEGIDOS)
+   ========================================================================== */
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Propuesta SUNOTE · Llantas</title>
-    <!-- Favicon / Ícono del Puma de SUNOTE para pestaña y móvil -->
-    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEvklEQVR4nO1WTWxUVRT+zn1vpjNDIdBhet99xY5KbaE0LAwhMWjAKLioC2OAyIKgLIwaIwkLdgoSTdhIFKJucOcCIZiYkAhKhMREAgFDoPRnHCtCYDpTWqSdKZ2fd4+5nXk4qUWeBnXTL3l5f/ec853vnPPuA2Yxi38ABgj/FxgQ04jck4x5b9YfAiyuHg+GeDaRaEy1tTU8CF8UdKFhfwqwWpqdvSGL3EkP31QYl7kU6l1+++qt6Wt3AfRSPD4H4XB7yKP5bLHNxeLp9tHRsfq1ImBwiwBepNTLENh8i/n1JbnMAYvLg5FoSV1sbpb18p4H7HcB7VmhV2Ogc57gEwJ0LBqODqaku9UkbnwGJuBDMz8rIE49PjQ0fBigzps3M+1DQ70Tlcqd/ni80dT7HBBaAZR7E2pdVIjdk8y6UQiUmccm4W3nsjhezQna+LT/DgFmniwTLzHXGwyfWtY0OjpmAl8G7BVA6SfXfYI0HwQhxoxiwdNfTNkTCrrBc/ri8TEaGRk3poEUOOUHIuppAJb1JBJO7bllDkPEZN0FlNLNapPQ/LUmLOBqpun2bGZLiL0dmmkdab3Yk7JYI8+BmtBIS4BOS9kVFdal2xpvdmZvfFy/pj+hVgkb28OgF0vMqABlAQgNFKKEgxXNj2jw2x3Z7Jl/NAU7AWE6e8BRPwgmOUdw5wRgyvGcZu4m0KoIEfLMprY6SmSbLrOIcEfrsbL2nlyay11iwCYYflXYARWg89VJKA+w3t0grKPjGudAeKyRyC4SochcyWutmSi0QAj7tud9LxjHQxa9MEHYvDyX669N093ggQjsrMkPoJxyWtYT6x2ms21BSytVqREGECGytRAw8o+zPjIfvEXlsoVDwJ6NgFfz4033b98n86ngF6Sc00i0B9CJCriLIKjErI3DIuOwBT3CTLc0vGEbONuRzZ419icB+2mgYhSsJYHABLgqlzfoOMkyaD8RvlqcyXx2Waqfo4SHNUPHSITynj7bkRv6aHrJzNnIXbd3mIn4E8RMDw1zE/xXKZeBaK8H/sAEH5ByZVTQozEiYYFfmdT604dC1oc9jrPe2P2STEZqqpnx8gNyLpGI3Wsjopk63QQ3Y2XbeG2hZW3LVSobYyTWjmuOzBXUWtDelx3Z7E6zIYl8/tuIEE/95nnPdGWz303r8qlZ73XdOBWLpaXVj8/9kVZqU8px951MJiO9jrN6wHE+v9bSsuaClM2ra2UzW6w5n5nrxgcd9eM15eqLUnb75avftlNNTfP64m5HfXl82D7LVFvbPCoU2jTTRrDOtw9l3roqF60sEb2RZ7214/r1gm9Uk9mbOo/fGDkDd21zIx9Rln00rdQ2ymT2+SQTAE2EQl6YuRXAQF1p/nAGAFeUWpV23P19Uq4x9wNNTS1pxzlwpbVV1WVF0zPw7Q8B4UGpPrnpLuK04x7rcZzOuz2VTEb6pNoVSH6/F8z3vl+phf49/gL173ul7L7iuH1pR+mUo04MOu47aUed7lfqPfPe34Z9kH9hMjsMiA3VDr47s7UZnnGE6uH/nvm2KSmfZ4huG4hp4htFz3u/a3g4H9QfZpI7CPzmDArCvwBfTdOA5n5N7QckUOazmAX+Y/wOhDEORN9lwD0AAAAASUVORK5CYII=">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-puma-32.png">
-    <link rel="icon" type="image/png" sizes="128x128" href="img/favicon-puma.png">
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="img/apple-touch-icon-puma.png">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-<body>
-    <div class="container" id="app">
-        <!-- HEADER -->
-        <header class="header">
-            <div class="brand-section">
-                <img class="logo-banner" id="logoImg" src="img/sunote.png" alt="SUNOTE Logo"
-                    onerror="this.style.display='none'">
-                <div class="doc-info">
-                    <strong>PROPUESTA COMERCIAL</strong><br>
-                    N° <span id="docNumber">COT-2026-001</span> · <span id="currentDate"></span>
-                </div>
-            </div>
-            <div class="header-right">
-                <div class="contact-info no-print">
-                    <a class="wa-link"
-                        href="https://wa.me/59170612393?text=Hola%2C%20me%20interesa%20preguntar%20por%20las%20llantas%20SUNOTE"
-                        target="_blank">
-                        <svg class="wa-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
-                        </svg>
-                        <span>(+591) 70612393</span>
-                    </a>
-                    <a class="wa-link"
-                        href="https://wa.me/59165653396?text=Hola%2C%20me%20interesa%20preguntar%20por%20las%20llantas%20SUNOTE"
-                        target="_blank">
-                        <svg class="wa-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
-                        </svg>
-                        <span>(+591) 65653396</span>
-                    </a>
-                </div>
-                <div class="btn-group no-print">
-                    <button class="btn btn-wa" onclick="abrirModalWhatsApp(event)" title="Enviar proforma seleccionada a WhatsApp para consultar disponibilidad de stock">
-                        <svg class="wa-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
-                        </svg>
-                        <span>Consultar Stock WhatsApp</span>
-                    </button>
-                    <button class="btn btn-success" onclick="generarProforma()">📄 Proforma</button>
-                    <button class="btn btn-primary" onclick="viewCatalog()">📋 Ver Catálogo</button>
-                </div>
-            </div>
-        </header>
+:root {
+    --font-heading: 'Outfit', -apple-system, sans-serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
 
-        <!-- CONTROLES -->
-        <div class="controls no-print">
-            <div class="info">
-                <span>⚙️</span>
-                <span>Precios en <strong>Bolivianos (BOB)</strong> · Selecciona la cantidad requerida</span>
-            </div>
+    /* Dark Modern Automotive Theme */
+    --bg-main: #0c1222;
+    --bg-card: #141e34;
+    --bg-card-hover: #1c2a48;
+    --bg-control: #18243e;
+    --border-color: #243556;
+    --border-highlight: #00e5ff;
 
-            <!-- COTIZACIONES REFERENCIALES EN TIEMPO REAL (BCB OFICIAL Y DÓLAR PARALELO) -->
-            <div class="dolar-bcb-container">
-                <!-- Dólar Oficial BCB -->
-                <div class="dolar-box bcb-box" id="dolarBcbBox"
-                    title="Cotización Oficial del Banco Central de Bolivia (www.bcb.gob.bo)">
-                    <div class="dolar-top">
-                        <div class="dolar-title-group">
-                            <span class="dolar-icon">🏦</span>
-                            <span class="dolar-label">BCB Oficial</span>
-                        </div>
-                        <span class="live-indicator" id="liveIndicator"
-                            title="Actualizado automáticamente desde el Banco Central de Bolivia">
-                            <span class="live-dot"></span> <span id="bcbDateText">Hoy</span>
-                        </span>
-                    </div>
-                    <div class="dolar-bottom">
-                        <span class="dolar-value-badge">
-                            1 USD = <strong id="dolarRateText">10.01</strong> BOB
-                        </span>
-                        <a class="bcb-link-badge" href="https://www.bcb.gob.bo/" target="_blank"
-                            title="Consultar página oficial del Banco Central de Bolivia">
-                            bcb.gob.bo ↗
-                        </a>
-                    </div>
-                </div>
+    /* Accent & Brand Colors */
+    --accent-cyan: #00e5ff;
+    --accent-blue: #3b82f6;
+    --accent-gold: #f59e0b;
+    --accent-green: #10b981;
+    --accent-red: #ef4444;
 
-                <!-- Dólar Paralelo (Blue) -->
-                <div class="dolar-box blue-box" id="dolarBlueBox"
-                    title="Cotización del Dólar Paralelo (Blue) en Bolivia en tiempo real">
-                    <div class="dolar-top">
-                        <div class="dolar-title-group">
-                            <span class="dolar-icon">📈</span>
-                            <span class="dolar-label">Dólar Paralelo</span>
-                        </div>
-                        <span class="live-indicator blue-indicator" id="blueLiveIndicator"
-                            title="Cotización de mercado paralelo en vivo">
-                            <span class="live-dot blue-dot"></span> En Vivo
-                        </span>
-                    </div>
-                    <div class="dolar-bottom">
-                        <span class="dolar-value-badge">
-                            1 USD = <strong id="dolarBlueRateText">11.78</strong> BOB
-                        </span>
-                        <a class="blue-link-badge" href="https://www.dolarbluebolivia.click/" target="_blank"
-                            title="Consultar cotización en tiempo real del Dólar Blue Bolivia">
-                            dolarbluebolivia.click ↗
-                        </a>
-                    </div>
-                </div>
-            </div>
+    /* Text Colors */
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --text-dark: #0f172a;
 
-            <div class="actions">
-                <button class="btn btn-warning" onclick="nuevaCotizacion()">✨ Nueva Cotización</button>
-            </div>
-        </div>
+    /* Shadows & Effects */
+    --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 20px 40px -10px rgba(0, 229, 255, 0.25), 0 0 20px rgba(0, 229, 255, 0.15);
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+}
 
-        <!-- BUSCADOR Y FILTROS -->
-        <div class="filter-section no-print">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Buscar por medida o modelo (ej: 295/80, 315/80, SN 257)..."
-                    oninput="handleSearch(this.value)">
-            </div>
-            <div class="filter-tags">
-                <span class="filter-label">Medidas:</span>
-                <button class="tag active" onclick="filterBySize('All', this)">Todas</button>
-                <button class="tag" onclick="filterBySize('295/80', this)">295/80</button>
-                <button class="tag" onclick="filterBySize('315/80', this)">315/80</button>
-                <button class="tag" onclick="filterBySize('275/70', this)">275/70</button>
-            </div>
-        </div>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        <!-- GRID DE PRODUCTOS -->
-        <main class="grid" id="productGrid"></main>
+/* Ocultar flechas numéricas en todos los navegadores */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
 
-        <!-- TOTALES -->
-        <div class="total-row">
-            <div class="total-summary-left">
-                <span>Total unidades: <strong id="totalUnits">0</strong></span>
-                <span>Subtotal: <strong id="subtotal">Bs 0.00</strong></span>
-            </div>
-            <div>
-                <span class="grand-total">💰 Total general: <strong id="grandTotal">Bs 0.00</strong></span>
-            </div>
-        </div>
+html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
 
-        <!-- ACCIÓN DE COMPRA / CONSULTA DE STOCK POR WHATSAPP -->
-        <div class="purchase-cta-area no-print">
-            <button class="btn-whatsapp-order" onclick="abrirModalWhatsApp(event)">
-                <svg class="wa-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
-                </svg>
-                <span>Enviar Pedido / Consultar Stock por WhatsApp</span>
-            </button>
-        </div>
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.5;
+    min-height: 100vh;
+    padding: 24px 16px 60px 16px;
+    overflow-x: hidden;
+    background-image: 
+        radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(0, 229, 255, 0.08) 0%, transparent 40%);
+}
 
-        <footer class="footer-note">
-            * Precios expresados exclusivamente en Bolivianos (BOB) · Fuente referencial cambiaria: Banco Central de
-            Bolivia (www.bcb.gob.bo) · Sujeto a disponibilidad de stock.
-        </footer>
-    </div>
+.container {
+    max-width: 1320px;
+    margin: 0 auto;
+}
 
-    <!-- ===== LIGHTBOX ===== -->
-    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-        <div class="lightbox-content" onclick="event.stopPropagation();">
-            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-            <img id="lightboxImg" src="" alt="Vista ampliada">
-            <div class="lightbox-caption" id="lightboxCaption"></div>
-        </div>
-    </div>
+/* ==========================================================================
+   HEADER SECTION
+   ========================================================================== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 22px 30px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-card);
+    flex-wrap: wrap;
+    gap: 20px;
+}
 
-    <!-- ===== MODAL ASESOR WHATSAPP ===== -->
-    <div class="wa-modal" id="waModal" onclick="cerrarWaModal(event)">
-        <div class="wa-modal-card" onclick="event.stopPropagation()">
-            <div class="wa-modal-header">
-                <div class="wa-modal-header-text">
-                    <svg class="wa-icon-large" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
-                        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
-                    </svg>
-                    <div>
-                        <h3>Consultar Stock y Disponibilidad</h3>
-                        <p>Elige la forma de contactar a nuestros asesores comerciales por WhatsApp:</p>
-                    </div>
-                </div>
-                <button class="wa-modal-close" onclick="cerrarWaModal()">✕</button>
-            </div>
-            <div class="wa-modal-body">
-                <!-- OPCIÓN 1: PROFORMA EN PDF (DIDÁCTICO Y FORMAL) -->
-                <div class="wa-section-title">📄 Enviar Proforma en PDF (Más llamativo y formal)</div>
-                <button class="wa-advisor-btn wa-pdf-highlight-btn" onclick="enviarProformaPDFWhatsApp('59170612393')">
-                    <div class="wa-advisor-left">
-                        <span class="wa-doc-badge">PDF</span>
-                        <div class="wa-advisor-data">
-                            <strong>Enviar Proforma PDF a Asesor 1</strong>
-                            <span>(+591) 70612393 · Documento oficial con detalle y totales</span>
-                        </div>
-                    </div>
-                    <span class="wa-advisor-arrow">➜</span>
-                </button>
-                <button class="wa-advisor-btn wa-pdf-highlight-btn" onclick="enviarProformaPDFWhatsApp('59165653396')">
-                    <div class="wa-advisor-left">
-                        <span class="wa-doc-badge">PDF</span>
-                        <div class="wa-advisor-data">
-                            <strong>Enviar Proforma PDF a Asesor 2</strong>
-                            <span>(+591) 65653396 · Documento oficial con detalle y totales</span>
-                        </div>
-                    </div>
-                    <span class="wa-advisor-arrow">➜</span>
-                </button>
+.brand-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-                <!-- OPCIÓN 2: MENSAJE DE TEXTO RÁPIDO -->
-                <div class="wa-section-title" style="margin-top: 8px;">💬 O enviar como Mensaje de Texto Rápido</div>
-                <div class="wa-quick-text-grid">
-                    <button class="wa-advisor-btn wa-text-opt-btn" onclick="enviarAWhatsApp('59170612393')">
-                        <div class="wa-advisor-left">
-                            <svg class="wa-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
-                            </svg>
-                            <div class="wa-advisor-data">
-                                <strong>Texto · Asesor 1</strong>
-                                <span>70612393</span>
-                            </div>
-                        </div>
-                        <span class="wa-advisor-arrow">➜</span>
-                    </button>
-                    <button class="wa-advisor-btn wa-text-opt-btn" onclick="enviarAWhatsApp('59165653396')">
-                        <div class="wa-advisor-left">
-                            <svg class="wa-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
-                            </svg>
-                            <div class="wa-advisor-data">
-                                <strong>Texto · Asesor 2</strong>
-                                <span>65653396</span>
-                            </div>
-                        </div>
-                        <span class="wa-advisor-arrow">➜</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+.logo-banner {
+    height: 46px;
+    max-width: 250px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(239, 68, 68, 0.3));
+    transition: transform 0.3s ease;
+    align-self: flex-start;
+}
 
-    <script src="js/app.js"></script>
-</body>
+.logo-banner:hover {
+    transform: scale(1.02);
+}
 
-</html>
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.doc-info {
+    text-align: left;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.doc-info strong {
+    color: var(--accent-cyan);
+    font-size: 1.08rem;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    margin-bottom: 2px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.wa-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    background: rgba(37, 211, 102, 0.12);
+    border: 1px solid rgba(37, 211, 102, 0.35);
+    padding: 7px 16px;
+    border-radius: var(--radius-full);
+    transition: all 0.25s ease;
+}
+
+.wa-icon {
+    width: 18px;
+    height: 18px;
+    fill: #25D366;
+    flex-shrink: 0;
+    transition: transform 0.25s ease, fill 0.25s ease;
+}
+
+.wa-link:hover {
+    background: #25D366;
+    color: white;
+    border-color: #25D366;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.45);
+}
+
+.wa-link:hover .wa-icon {
+    fill: white;
+    transform: scale(1.15);
+}
+
+.btn-wa {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+    transition: all 0.25s ease;
+}
+
+.btn-wa .wa-icon {
+    fill: white;
+}
+
+.btn-wa:hover {
+    background: linear-gradient(135deg, #1fa855 0%, #0d6e62 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(37, 211, 102, 0.55);
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.btn {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 700;
+    padding: 11px 20px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    background: var(--bg-control);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent-cyan);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #0284c7 0%, #00e5ff 100%);
+    color: #061122;
+    border: none;
+    font-weight: 800;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(0, 229, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: white;
+    border: none;
+    font-weight: 800;
+}
+
+.btn-success:hover {
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+    transform: translateY(-2px);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+    color: #1a0f00;
+    border: none;
+    font-weight: 800;
+}
+
+/* ==========================================================================
+   CONTROLS BAR & REFERENCIA BCB DÓLAR EN VIVO
+   ========================================================================== */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px 22px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.controls .info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+}
+
+.controls .info strong {
+    color: var(--accent-cyan);
+}
+
+.dolar-bcb-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    width: 100%;
+}
+
+.dolar-box {
+    background: rgba(10, 15, 29, 0.85);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    transition: all 0.25s ease;
+}
+
+.dolar-box:hover {
+    border-color: rgba(56, 189, 248, 0.65);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 229, 255, 0.15);
+}
+
+.dolar-box.blue-box {
+    border-color: rgba(245, 158, 11, 0.38);
+    background: rgba(18, 15, 26, 0.85);
+}
+
+.dolar-box.blue-box:hover {
+    border-color: rgba(245, 158, 11, 0.7);
+    box-shadow: 0 6px 18px rgba(245, 158, 11, 0.18);
+}
+
+.dolar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.dolar-title-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dolar-icon {
+    font-size: 1.15rem;
+}
+
+.dolar-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.dolar-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 8px;
+}
+
+.dolar-value-badge {
+    font-family: var(--font-heading);
+    font-size: 0.98rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dolar-value-badge strong {
+    color: var(--accent-cyan);
+    font-size: 1.18rem;
+    font-weight: 900;
+}
+
+.dolar-box.blue-box .dolar-value-badge strong {
+    color: var(--accent-gold);
+}
+
+.live-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.15);
+    padding: 3px 9px;
+    border-radius: var(--radius-full);
+}
+
+.live-indicator.blue-indicator {
+    color: #fbbf24;
+    background: rgba(245, 158, 11, 0.15);
+}
+
+.live-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-green);
+    animation: pulseDot 1.8s infinite;
+}
+
+.live-dot.blue-dot {
+    background: #fbbf24;
+    box-shadow: 0 0 8px #fbbf24;
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.bcb-link-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    color: #60a5fa;
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.bcb-link-badge:hover {
+    background: var(--accent-blue);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(59, 130, 246, 0.35);
+}
+
+.blue-link-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: #fbbf24;
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.blue-link-badge:hover {
+    background: #f59e0b;
+    color: #0b1120;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(245, 158, 11, 0.35);
+}
+
+.btn-refresh-rate {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 6px 13px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+}
+
+.btn-refresh-rate:hover {
+    background: rgba(56, 189, 248, 0.12);
+    color: var(--accent-cyan);
+    border-color: rgba(56, 189, 248, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-refresh-rate:active {
+    transform: scale(0.96);
+}
+
+.btn-refresh-rate.is-refreshing .spin-icon {
+    display: inline-block;
+    animation: spinIcon 0.8s linear infinite;
+}
+
+@keyframes spinIcon {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading-rate {
+    display: inline-block;
+    opacity: 0.65;
+    font-style: italic;
+    font-size: 0.95rem;
+    animation: pulseLoading 1.2s infinite ease-in-out;
+}
+
+@keyframes pulseLoading {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+.dolar-editable-hint {
+    cursor: pointer;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+    transition: border-color 0.2s;
+}
+
+.dolar-editable-hint:hover {
+    border-bottom-color: var(--accent-gold);
+}
+
+.controls .actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   FILTER & SEARCH SECTION
+   ========================================================================== */
+.filter-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px 22px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 260px;
+}
+
+.search-box input {
+    width: 100%;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 11px 18px;
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.search-box input:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.2);
+    background: #0f1629;
+}
+
+.filter-tags {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filter-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.tag {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 700;
+    background: var(--bg-control);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tag:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-cyan);
+    transform: translateY(-1px);
+}
+
+.tag.active {
+    background: linear-gradient(135deg, #2563eb, #00e5ff);
+    border-color: var(--accent-cyan);
+    color: #061122;
+    font-weight: 800;
+    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.35);
+}
+
+/* ==========================================================================
+   PRODUCT GRID & ANIMATED CARDS (PRECIOS FIJOS NO MANIPULABLES)
+   ========================================================================== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 26px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    cursor: default;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                box-shadow 0.35s ease, 
+                border-color 0.35s ease, 
+                background 0.35s ease;
+    will-change: transform, box-shadow;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--accent-cyan);
+    box-shadow: var(--shadow-hover);
+    background: var(--bg-card-hover);
+}
+
+.card.selected {
+    border-color: var(--accent-green);
+    box-shadow: 0 15px 35px -5px rgba(16, 185, 129, 0.3), 0 0 15px rgba(16, 185, 129, 0.2);
+}
+
+.card-image {
+    position: relative;
+    background: #0b1325;
+    height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.3s ease;
+}
+
+.card:hover .card-image {
+    background: #0f1a33;
+}
+
+.tire-img {
+    max-height: 175px;
+    max-width: 88%;
+    object-fit: contain;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5));
+}
+
+.card:hover .tire-img {
+    transform: scale(1.12) rotate(-1.5deg);
+    filter: drop-shadow(0 12px 20px rgba(0, 229, 255, 0.3));
+}
+
+.badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #0f172a;
+    color: var(--accent-cyan);
+    border: 1px solid rgba(0, 229, 255, 0.4);
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.card:hover .badge {
+    background: var(--accent-cyan);
+    color: #081120;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.6);
+}
+
+.zoom-hint {
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
+    background: rgba(12, 18, 34, 0.85);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 0.25s ease;
+}
+
+.card-image:hover .zoom-hint {
+    opacity: 1;
+    transform: translateY(0);
+    color: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+}
+
+.card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+    letter-spacing: -0.3px;
+    transition: color 0.2s ease;
+}
+
+.card:hover .card-title {
+    color: var(--accent-cyan);
+}
+
+.card-subtitle {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    margin-bottom: 12px;
+}
+
+.specs {
+    background: rgba(10, 15, 29, 0.65);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    font-size: 0.88rem;
+    transition: border-color 0.2s ease;
+}
+
+.card:hover .specs {
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+.spec-item {
+    display: inline-block;
+    color: var(--text-secondary);
+    margin-right: 12px;
+    font-weight: 600;
+}
+
+.desc-item {
+    color: var(--text-muted);
+    font-size: 0.84rem;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+.price-area {
+    margin-top: auto;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    transition: border-color 0.2s ease;
+}
+
+.card:hover .price-area {
+    border-color: var(--border-highlight);
+}
+
+/* Fila de precio unitario fija y protegida */
+.price-unit-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 9px 14px;
+    margin-bottom: 12px;
+}
+
+.price-unit-label {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.price-unit-value {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--accent-cyan);
+    letter-spacing: 0.5px;
+}
+
+.qty-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.btn-qty {
+    width: 40px;
+    height: 40px;
+    background: var(--bg-control);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    font-weight: 800;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+}
+
+.btn-qty:hover {
+    background: var(--accent-blue);
+    border-color: var(--accent-cyan);
+    color: white;
+    transform: scale(1.08);
+}
+
+.btn-qty:active {
+    transform: scale(0.94);
+}
+
+.qty-display {
+    flex: 1;
+    text-align: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    padding: 6px 0;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.card.selected .qty-display {
+    color: var(--accent-green);
+    border-color: var(--accent-green);
+}
+
+.item-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.item-total span {
+    font-family: var(--font-heading);
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: var(--accent-gold);
+    transition: color 0.2s ease;
+}
+
+.card.selected .item-total span {
+    color: var(--accent-green);
+}
+
+/* ==========================================================================
+   TOTALS BAR & PURCHASE CTA (100% BOLIVIANOS)
+   ========================================================================= */
+.total-row {
+    background: linear-gradient(135deg, #131f38 0%, #1c2b4d 100%);
+    border: 1px solid var(--accent-blue);
+    border-radius: var(--radius-lg);
+    padding: 22px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 26px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(37, 99, 235, 0.2);
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+}
+
+.total-summary-left {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.total-summary-left strong {
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+}
+
+.grand-total {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.grand-total strong {
+    font-size: 1.95rem;
+    color: var(--accent-cyan);
+    font-weight: 900;
+    text-shadow: 0 0 16px rgba(0, 229, 255, 0.45);
+}
+
+.purchase-cta-area {
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.btn-whatsapp-order {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: white;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 900;
+    padding: 18px 40px;
+    border-radius: var(--radius-full);
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.45);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-whatsapp-order:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 15px 40px rgba(16, 185, 129, 0.65);
+}
+
+.btn-whatsapp-order:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+.footer-note {
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   LIGHTBOX MODAL
+   ========================================================================== */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(8, 14, 28, 0.9);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 24px;
+}
+
+.lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-content {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    max-width: 850px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lightbox.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: rgba(239, 68, 68, 0.85);
+    border: none;
+    color: white;
+    font-size: 1.4rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.lightbox-close:hover {
+    background: var(--accent-red);
+    transform: scale(1.1);
+}
+
+#lightboxImg {
+    max-height: 68vh;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    margin-bottom: 14px;
+}
+
+.lightbox-caption {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--accent-cyan);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (OPTIMIZADO PARA MÓVILES Y PANTALLAS PEQUEÑAS)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 10px;
+    }
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 14px 10px 40px 10px;
+    }
+
+    /* HEADER */
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px 14px;
+        gap: 16px;
+    }
+
+    .brand-section {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 12px;
+    }
+
+    .logo-banner {
+        height: 38px;
+        max-width: 200px;
+    }
+
+    .header-right {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .doc-info {
+        text-align: left;
+        font-size: 0.88rem;
+    }
+
+    .contact-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .wa-link {
+        font-size: 0.78rem;
+        padding: 8px 6px;
+        justify-content: center;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .btn-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .btn-group .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 11px 8px;
+        font-size: 0.88rem;
+    }
+
+    /* CONTROLES Y TASAS DE CAMBIO */
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .controls .info {
+        font-size: 0.86rem;
+        line-height: 1.35;
+    }
+
+    .dolar-bcb-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dolar-box {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--radius-md);
+        padding: 10px 14px;
+        gap: 8px;
+        box-sizing: border-box;
+    }
+
+    .dolar-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .dolar-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 8px;
+    }
+
+    .dolar-label {
+        font-size: 0.86rem;
+    }
+
+    .dolar-value-badge {
+        font-size: 0.94rem;
+    }
+
+    .dolar-value-badge strong {
+        font-size: 1.12rem;
+    }
+
+    .bcb-link-badge,
+    .blue-link-badge {
+        font-size: 0.74rem;
+        padding: 3px 8px;
+    }
+
+    .controls .actions {
+        width: 100%;
+    }
+
+    .controls .actions .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 11px;
+    }
+
+    /* FILTROS Y BÚSQUEDA */
+    .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .search-box {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .search-box input {
+        font-size: 0.92rem;
+        padding: 10px 14px;
+    }
+
+    .filter-tags {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .filter-tags .tag {
+        flex: 1 1 auto;
+        min-width: 60px;
+        text-align: center;
+        padding: 7px 10px;
+        font-size: 0.82rem;
+    }
+
+    /* GRILLA DE PRODUCTOS */
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-bottom: 24px;
+    }
+
+    .card {
+        max-width: 100%;
+    }
+
+    /* Evitar que el hover se quede pegado en pantallas táctiles */
+    .card:hover {
+        transform: translateY(-2px);
+    }
+
+    .card-image {
+        height: 190px;
+    }
+
+    .tire-img {
+        max-height: 160px;
+    }
+
+    .price-unit-row {
+        padding: 8px 12px;
+    }
+
+    .price-unit-value {
+        font-size: 1.25rem;
+    }
+
+    .qty-control {
+        gap: 8px;
+    }
+
+    .btn-qty {
+        width: 44px;
+        height: 44px;
+        font-size: 1.4rem;
+    }
+
+    .qty-display {
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+    /* BARRA DE TOTALES */
+    .total-row {
+        padding: 16px 18px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .total-summary-left {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 10px;
+        font-size: 0.92rem;
+        gap: 10px;
+    }
+
+    .grand-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        font-size: 1.05rem;
+    }
+
+    .grand-total strong {
+        font-size: 1.55rem;
+    }
+
+    /* BOTÓN WHATSAPP */
+    .btn-whatsapp-order {
+        width: 100%;
+        justify-content: center;
+        font-size: 1.15rem;
+        padding: 16px 20px;
+    }
+
+    /* LIGHTBOX EN MÓVIL */
+    .lightbox-content {
+        padding: 18px 14px;
+        max-width: 95vw;
+    }
+
+    .lightbox-caption {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .contact-info {
+        grid-template-columns: 1fr;
+    }
+
+    .dolar-bottom {
+        gap: 6px;
+    }
+
+    .dolar-value-badge {
+        font-size: 0.9rem;
+    }
+
+    .dolar-value-badge strong {
+        font-size: 1.05rem;
+    }
+}
+
+/* ==========================================================================
+   MODAL WHATSAPP ADVISOR SELECTION
+   ========================================================================== */
+.wa-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.wa-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.wa-modal-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 480px;
+    padding: 26px;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.wa-modal.active .wa-modal-card {
+    transform: scale(1);
+}
+
+.wa-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.wa-modal-header-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.wa-modal-header-text .wa-icon-large {
+    fill: #25D366;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.wa-modal-header-text h3 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.wa-modal-header-text p {
+    margin: 4px 0 0 0;
+    font-size: 0.86rem;
+    color: var(--text-muted);
+}
+
+.wa-modal-close {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.wa-modal-close:hover {
+    background: #ef4444;
+    color: white;
+    transform: scale(1.1);
+}
+
+.wa-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.wa-advisor-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.wa-advisor-btn:hover {
+    border-color: #25D366;
+    background: rgba(37, 211, 102, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2);
+}
+
+.wa-advisor-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.wa-advisor-left .wa-icon {
+    width: 24px;
+    height: 24px;
+    fill: #25D366;
+    transition: transform 0.25s ease;
+}
+
+.wa-advisor-btn:hover .wa-icon {
+    transform: scale(1.15);
+}
+
+.wa-advisor-data {
+    display: flex;
+    flex-direction: column;
+}
+
+.wa-advisor-data strong {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    color: var(--text-primary);
+}
+
+.wa-advisor-data span {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.wa-advisor-arrow {
+    font-size: 1.1rem;
+    color: #25D366;
+    transition: transform 0.2s ease;
+}
+
+.wa-advisor-btn:hover .wa-advisor-arrow {
+    transform: translateX(4px);
+}
+
+.wa-section-title {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+    margin-bottom: 2px;
+}
+
+.wa-doc-badge {
+    background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 6px 9px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.35);
+    flex-shrink: 0;
+}
+
+.wa-advisor-btn.wa-pdf-highlight-btn {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.05) 100%);
+    border: 1.5px solid rgba(16, 185, 129, 0.45);
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.12);
+}
+
+.wa-advisor-btn.wa-pdf-highlight-btn:hover {
+    border-color: #10b981;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(5, 150, 105, 0.1) 100%);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+}
+
+.wa-quick-text-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.wa-advisor-btn.wa-text-opt-btn {
+    padding: 12px 14px;
+}
+
+@media (max-width: 580px) {
+    .wa-quick-text-grid {
+        grid-template-columns: 1fr;
+    }
+}
