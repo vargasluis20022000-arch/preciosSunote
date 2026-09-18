@@ -362,6 +362,50 @@ function enviarAWhatsApp(telefono) {
     window.open(url, '_blank');
 }
 
+function enviarProformaPDFWhatsApp(advisorPhone) {
+    const seleccionados = productosData.filter(p => (cantidades[p.id] || 0) > 0);
+    if (seleccionados.length === 0) {
+        alert('⚠️ Selecciona al menos 1 producto con cantidad mayor a 0 (+ / −) para generar la proforma.');
+        cerrarWaModal();
+        return;
+    }
+
+    const docNum = document.getElementById('docNumber')?.innerText || 'COT-2026-001';
+    const fecha = document.getElementById('currentDate')?.innerText || new Date().toLocaleDateString('es-ES');
+    let total = 0;
+    const items = seleccionados.map(p => {
+        const qty = cantidades[p.id];
+        const precio = p.precioBase;
+        const sub = qty * precio;
+        total += sub;
+        return {
+            modelo: p.modelo,
+            tamanos: p.tamanos,
+            pr: p.pr,
+            descripcion: p.descripcion,
+            cantidad: qty,
+            precioUnitario: precio,
+            subtotal: sub
+        };
+    });
+
+    const proformaData = {
+        docNum: docNum,
+        fecha: fecha,
+        total: total,
+        items: items
+    };
+
+    localStorage.setItem('sunote_current_proforma', JSON.stringify(proformaData));
+    cerrarWaModal();
+
+    const phoneParam = advisorPhone ? `&advisor=${advisorPhone}` : '';
+    const win = window.open(`proforma.html?sharePdf=1${phoneParam}`, '_blank');
+    if (!win) {
+        alert('⚠️ Por favor permite las ventanas emergentes (popups) en tu navegador para generar y compartir el PDF.');
+    }
+}
+
 // Alias de compatibilidad
 function enviarPedidoWhatsApp(event) {
     abrirModalWhatsApp(event);
