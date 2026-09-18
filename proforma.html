@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proforma Comercial · SUNOTE Llantas</title>
+    <!-- Favicon Oficial del Puma de SUNOTE (Base64 Data URI para file:/// y servidor web) -->
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEvklEQVR4nO1WTWxUVRT+zn1vpjNDIdBhet99xY5KbaE0LAwhMWjAKLioC2OAyIKgLIwaIwkLdgoSTdhIFKJucOcCIZiYkAhKhMREAgFDoPRnHCtCYDpTWqSdKZ2fd4+5nXk4qUWeBnXTL3l5f/ec853vnPPuA2Yxi38ABgj/FxgQ04jck4x5b9YfAiyuHg+GeDaRaEy1tTU8CF8UdKFhfwqwWpqdvSGL3EkP31QYl7kU6l1+++qt6Wt3AfRSPD4H4XB7yKP5bLHNxeLp9tHRsfq1ImBwiwBepNTLENh8i/n1JbnMAYvLg5FoSV1sbpb18p4H7HcB7VmhV2Ogc57gEwJ0LBqODqaku9UkbnwGJuBDMz8rIE49PjQ0fBigzps3M+1DQ70Tlcqd/ni80dT7HBBaAZR7E2pdVIjdk8y6UQiUmccm4W3nsjhezQna+LT/DgFmniwTLzHXGwyfWtY0OjpmAl8G7BVA6SfXfYI0HwQhxoxiwdNfTNkTCrrBc/ri8TEaGRk3poEUOOUHIuppAJb1JBJO7bllDkPEZN0FlNLNapPQ/LUmLOBqpun2bGZLiL0dmmkdab3Yk7JYI8+BmtBIS4BOS9kVFdal2xpvdmZvfFy/pj+hVgkb28OgF0vMqABlAQgNFKKEgxXNj2jw2x3Z7Jl/NAU7AWE6e8BRPwgmOUdw5wRgyvGcZu4m0KoIEfLMprY6SmSbLrOIcEfrsbL2nlyay11iwCYYflXYARWg89VJKA+w3t0grKPjGudAeKyRyC4SochcyWutmSi0QAj7tud9LxjHQxa9MEHYvDyX669N093ggQjsrMkPoJxyWtYT6x2ms21BSytVqREGECGytRAw8o+zPjIfvEXlsoVDwJ6NgFfz4033b98n86ngF6Sc00i0B9CJCriLIKjErI3DIuOwBT3CTLc0vGEbONuRzZ419icB+2mgYhSsJYHABLgqlzfoOMkyaD8RvlqcyXx2Waqfo4SHNUPHSITynj7bkRv6aHrJzNnIXbd3mIn4E8RMDw1zE/xXKZeBaK8H/sAEH5ByZVTQozEiYYFfmdT604dC1oc9jrPe2P2STEZqqpnx8gNyLpGI3Wsjopk63QQ3Y2XbeG2hZW3LVSobYyTWjmuOzBXUWtDelx3Z7E6zIYl8/tuIEE/95nnPdGWz303r8qlZ73XdOBWLpaXVj8/9kVZqU8px951MJiO9jrN6wHE+v9bSsuaClM2ra2UzW6w5n5nrxgcd9eM15eqLUnb75avftlNNTfP64m5HfXl82D7LVFvbPCoU2jTTRrDOtw9l3roqF60sEb2RZ7214/r1gm9Uk9mbOo/fGDkDd21zIx9Rln00rdQ2ymT2+SQTAE2EQl6YuRXAQF1p/nAGAFeUWpV23P19Uq4x9wNNTS1pxzlwpbVV1WVF0zPw7Q8B4UGpPrnpLuK04x7rcZzOuz2VTEb6pNoVSH6/F8z3vl+phf49/gL173ul7L7iuH1pR+mUo04MOu47aUed7lfqPfPe34Z9kH9hMjsMiA3VDr47s7UZnnGE6uH/nvm2KSmfZ4huG4hp4htFz3u/a3g4H9QfZpI7CPzmDArCvwBfTdOA5n5N7QckUOazmAX+Y/wOhDEORN9lwD0AAAAASUVORK5CYII=">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-puma-32.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="img/favicon-puma.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon-puma.png">
+    <script src="js/html2pdf.bundle.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            padding: 40px 20px;
+            color: #0f172a;
+            background: #f8fafc;
+            margin: 0;
+        }
+
+        .paper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 45px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 24px;
+            margin-bottom: 28px;
+            gap: 20px;
+        }
+
+        .logo-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .proforma-logo {
+            height: 48px;
+            max-width: 250px;
+            width: auto;
+            object-fit: contain;
+            margin-bottom: 6px;
+        }
+
+        .meta-box {
+            text-align: right;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-top: 24px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 480px;
+        }
+
+        th,
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: #f1f5f9;
+            font-weight: 800;
+            text-align: left;
+            color: #0f172a;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .total-box {
+            text-align: right;
+            margin-top: 24px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 900;
+            color: #0284c7;
+            background: #f0f9ff;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid #bae6fd;
+        }
+
+        .btn-print {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 30px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            cursor: pointer;
+            margin-bottom: 0;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-print:hover {
+            background: #0284c7;
+            transform: translateY(-1px);
+        }
+
+        .proforma-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn-pdf-wa {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            border: none;
+            padding: 13px 30px;
+            border-radius: 30px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-pdf-wa:hover {
+            background: linear-gradient(135deg, #047857 0%, #059669 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        .btn-pdf-wa:disabled {
+            opacity: 0.75;
+            cursor: wait;
+            transform: none;
+        }
+
+        .btn-wa-text {
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+            padding: 11px 22px;
+            border-radius: 30px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-wa-text:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+            border-color: #94a3b8;
+            transform: translateY(-1px);
+        }
+
+        .pdf-toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #0f172a;
+            color: white;
+            border-left: 5px solid #10b981;
+            padding: 16px 22px;
+            border-radius: 14px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            z-index: 99999;
+            transform: translateY(100px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 440px;
+            font-size: 0.9rem;
+        }
+
+        .pdf-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .pdf-toast strong {
+            display: block;
+            font-size: 1rem;
+            color: #10b981;
+            margin-bottom: 3px;
+        }
+
+        .btn-wa {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-wa:hover {
+            background: linear-gradient(135deg, #1fa855 0%, #0d6e62 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        }
+
+        .wa-icon {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .wa-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: #059669;
+            font-weight: 700;
+            padding: 4px 10px;
+            background: rgba(37, 211, 102, 0.12);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            border-radius: 20px;
+            margin: 0 4px;
+            transition: all 0.2s;
+        }
+
+        .wa-inline:hover {
+            background: #25D366;
+            color: white;
+        }
+
+        .wa-inline .wa-icon {
+            fill: #25D366;
+        }
+
+        .wa-inline:hover .wa-icon {
+            fill: white;
+        }
+
+        /* Modal WhatsApp */
+        .wa-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .wa-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .wa-modal-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            width: 100%;
+            max-width: 480px;
+            padding: 26px;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .wa-modal.active .wa-modal-card {
+            transform: scale(1);
+        }
+
+        .wa-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .wa-modal-header-text {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .wa-modal-header-text .wa-icon-large {
+            fill: #25D366;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .wa-modal-header-text h3 {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .wa-modal-header-text p {
+            margin: 4px 0 0 0;
+            font-size: 0.86rem;
+            color: #64748b;
+        }
+
+        .wa-modal-close {
+            background: #f1f5f9;
+            color: #64748b;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .wa-modal-close:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .wa-modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .wa-advisor-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: left;
+            width: 100%;
+        }
+
+        .wa-advisor-btn:hover {
+            border-color: #25D366;
+            background: rgba(37, 211, 102, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.15);
+        }
+
+        .wa-advisor-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .wa-advisor-left .wa-icon {
+            width: 24px;
+            height: 24px;
+            fill: #25D366;
+        }
+
+        .wa-advisor-data strong {
+            display: block;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            color: #0f172a;
+        }
+
+        .wa-advisor-data span {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .wa-advisor-arrow {
+            font-size: 1.1rem;
+            color: #25D366;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 16px 10px;
+            }
+
+            .proforma-actions {
+                flex-direction: column;
+            }
+
+            .btn-print, .btn-wa {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .paper {
+                padding: 22px 14px;
+                border-radius: 16px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+                padding-bottom: 18px;
+                margin-bottom: 18px;
+            }
+
+            .proforma-logo {
+                height: 40px;
+                max-width: 210px;
+            }
+
+            .meta-box {
+                text-align: left;
+                width: 100%;
+                border-top: 1px solid #e2e8f0;
+                padding-top: 12px;
+            }
+
+            .table-container {
+                margin-top: 16px;
+            }
+
+            th,
+            td {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+
+            .total-box {
+                font-size: 1.25rem;
+                text-align: center;
+                padding: 14px 10px;
+            }
+
+            .btn-print {
+                width: 100%;
+                padding: 14px;
+                font-size: 1rem;
+            }
+        }
+
+        @media print {
+            .btn-print {
+                display: none !important;
+            }
+
+            body {
+                padding: 0;
+                background: white;
+            }
+
+            .paper {
+                box-shadow: none;
+                padding: 0;
+                border: none;
+            }
+
+            .table-container {
+                border: none;
+            }
+
+            table {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="paper">
+        <div class="proforma-actions no-print">
+            <button class="btn-pdf-wa" id="btnSharePdf" onclick="compartirProformaPDF()">
+                <svg class="wa-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
+                </svg>
+                <span>📄 Enviar Proforma en PDF por WhatsApp</span>
+            </button>
+            <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+            <button class="btn-wa-text" onclick="abrirModalWhatsAppProforma()">
+                <svg class="wa-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
+                </svg>
+                <span>💬 Mensaje de Texto</span>
+            </button>
+        </div>
+        <div class="proforma-printable-area" id="proformaPrintableArea">
+        <div class="header">
+            <div class="logo-box">
+                <img class="proforma-logo" src="img/sunote.png" alt="SUNOTE" onerror="this.style.display='none'">
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 0.88rem;">Garantía y Rendimiento Superior · Bolivia</p>
+            </div>
+            <div class="meta-box">
+                <h3 style="margin: 0; color: #0284c7; font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 800;">PROFORMA COMERCIAL</h3>
+                <p style="margin: 4px 0 0 0; font-size: 0.92rem;"><strong>N°:</strong> <span id="docNumText">COT-2026-001</span></p>
+                <p style="margin: 2px 0 0 0; font-size: 0.92rem;"><strong>Fecha:</strong> <span id="fechaText"></span></p>
+            </div>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:40px; text-align:center;">#</th>
+                        <th>Detalle de Llanta</th>
+                        <th style="text-align:center; width:70px;">Cant.</th>
+                        <th style="text-align:right; width:110px;">P. Unit</th>
+                        <th style="text-align:right; width:120px;">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="proformaTableBody">
+                    <!-- Filas generadas dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+        <div class="total-box" id="proformaTotalBox">
+            TOTAL GENERAL: Bs 0.00
+        </div>
+        <div style="margin-top: 28px; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 0.85rem; color: #475569; line-height: 1.8;">
+            ▪ Precios expresados en Bolivianos (BOB) con entrega inmediata.<br>
+            ▪ Proforma válida por 15 días calendario.<br>
+            ▪ Contacto Comercial Directo: 
+            <a class="wa-inline" href="https://wa.me/59170612393?text=Hola%2C%20quisiera%20consultar%20por%20la%20proforma%20SUNOTE" target="_blank">
+                <svg class="wa-icon" viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
+                </svg>
+                (+591) 70612393
+            </a>
+            <a class="wa-inline" href="https://wa.me/59165653396?text=Hola%2C%20quisiera%20consultar%20por%20la%20proforma%20SUNOTE" target="_blank">
+                <svg class="wa-icon" viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
+                </svg>
+                (+591) 65653396
+            </a>
+        </div>
+        </div><!-- fin #proformaPrintableArea -->
+    </div><!-- fin .paper -->
+
+    <!-- ===== MODAL ASESOR WHATSAPP ===== -->
+    <div class="wa-modal" id="waModal" onclick="cerrarWaModal(event)">
+        <div class="wa-modal-card" onclick="event.stopPropagation()">
+            <div class="wa-modal-header">
+                <div class="wa-modal-header-text">
+                    <svg class="wa-icon-large" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
+                    </svg>
+                    <div>
+                        <h3>Enviar Mensaje de Texto Rápido</h3>
+                        <p>Elige al asesor comercial para enviar el detalle de la proforma:</p>
+                    </div>
+                </div>
+                <button class="wa-modal-close" onclick="cerrarWaModal()">✕</button>
+            </div>
+            <div class="wa-modal-body">
+                <button class="wa-advisor-btn" onclick="enviarAWhatsAppProforma('59170612393')">
+                    <div class="wa-advisor-left">
+                        <svg class="wa-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
+                        </svg>
+                        <div class="wa-advisor-data">
+                            <strong>Asesor Comercial 1</strong>
+                            <span>(+591) 70612393 · Atención Directa</span>
+                        </div>
+                    </div>
+                    <span class="wa-advisor-arrow">➜</span>
+                </button>
+                <button class="wa-advisor-btn" onclick="enviarAWhatsAppProforma('59165653396')">
+                    <div class="wa-advisor-left">
+                        <svg class="wa-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
+                        </svg>
+                        <div class="wa-advisor-data">
+                            <strong>Asesor Comercial 2</strong>
+                            <span>(+591) 65653396 · Atención Directa</span>
+                        </div>
+                    </div>
+                    <span class="wa-advisor-arrow">➜</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificación Toast para PC -->
+    <div class="pdf-toast" id="pdfToast">
+        <div style="font-size:1.8rem;">📄</div>
+        <div>
+            <strong>¡PDF Oficial Descargado!</strong>
+            <span>Se abrió WhatsApp. Simplemente adjunta o arrastra el PDF descargado al chat con el asesor.</span>
+        </div>
+    </div>
+
+    <script>
+        let cachedProformaData = null;
+        let isSharingPdf = false;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                const raw = localStorage.getItem('sunote_current_proforma');
+                if (!raw) return;
+                cachedProformaData = JSON.parse(raw);
+
+                if (cachedProformaData.docNum) {
+                    document.getElementById('docNumText').innerText = cachedProformaData.docNum;
+                    document.title = 'Proforma Comercial - ' + cachedProformaData.docNum;
+                }
+                if (cachedProformaData.fecha) {
+                    document.getElementById('fechaText').innerText = cachedProformaData.fecha;
+                }
+
+                const tbody = document.getElementById('proformaTableBody');
+                if (tbody && cachedProformaData.items && cachedProformaData.items.length > 0) {
+                    let total = 0;
+                    tbody.innerHTML = '';
+                    cachedProformaData.items.forEach((item, idx) => {
+                        total += item.subtotal;
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td style="text-align:center; font-weight:bold;">${idx + 1}</td>
+                            <td>
+                                <strong style="font-size:1.05rem; color:#0f172a;">${item.modelo}</strong> (${item.tamanos} · ${item.pr})
+                                <div style="color:#64748b; font-size:0.85rem; margin-top:2px;">${item.descripcion || ''}</div>
+                            </td>
+                            <td style="text-align:center; font-weight:bold; font-size:1rem;">${item.cantidad}</td>
+                            <td style="text-align:right;">Bs ${Number(item.precioUnitario).toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                            <td style="text-align:right; font-weight:800; color:#0f172a;">Bs ${Number(item.subtotal).toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+
+                    document.getElementById('proformaTotalBox').innerText = 'TOTAL GENERAL: Bs ' + total.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+
+                // Si viene solicitado auto-compartir en PDF desde la página principal
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('sharePdf') === '1') {
+                    const advisor = urlParams.get('advisor') || '59170612393';
+                    setTimeout(() => {
+                        compartirProformaPDF(advisor);
+                    }, 600);
+                }
+            } catch (err) {
+                console.error('Error cargando proforma:', err);
+            }
+        });
+
+        async function compartirProformaPDF(advisorPhone) {
+            if (isSharingPdf) return;
+            isSharingPdf = true;
+
+            const element = document.getElementById('proformaPrintableArea');
+            if (!element) {
+                isSharingPdf = false;
+                return;
+            }
+
+            const docNum = document.getElementById('docNumText')?.innerText || 'COT-2026-001';
+            const filename = `Proforma_SUNOTE_${docNum}.pdf`;
+
+            const btn = document.getElementById('btnSharePdf');
+            const originalBtnHtml = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.innerHTML = `<span style="display:inline-flex; align-items:center; gap:8px;">⏳ Generando PDF Oficial...</span>`;
+                btn.disabled = true;
+            }
+
+            try {
+                const opt = {
+                    margin: [8, 8, 8, 8],
+                    filename: filename,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true, logging: false },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                const pdfBlob = await html2pdf().set(opt).from(element).output('blob');
+                const file = new File([pdfBlob], filename, { type: 'application/pdf' });
+
+                const mensaje = `¡Hola! Le comparto la *Proforma oficial SUNOTE N° ${docNum}* en formato PDF para consultar disponibilidad de stock de llantas.`;
+
+                // 1. Si el dispositivo soporta compartir archivos directamente (Móviles Android / iPhone con WhatsApp):
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    try {
+                        await navigator.share({
+                            title: `Proforma SUNOTE ${docNum}`,
+                            text: mensaje,
+                            files: [file]
+                        });
+                        return;
+                    } catch (shareErr) {
+                        if (shareErr.name === 'AbortError') return; // Usuario canceló
+                    }
+                }
+
+                // 2. Si estamos en PC / Escritorio (WhatsApp Web):
+                // Descargamos el archivo PDF automáticamente
+                const blobUrl = URL.createObjectURL(pdfBlob);
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 3000);
+
+                // Abrir chat de WhatsApp con el asesor
+                const phone = advisorPhone || '59170612393';
+                const msgDesktop = `*¡Hola!* Le adjunto la *Proforma SUNOTE N° ${docNum}* en formato PDF para consultar disponibilidad de stock de llantas. (El archivo PDF se descargó para adjuntarlo).`;
+                const url = `https://wa.me/${phone}?text=${encodeURIComponent(msgDesktop)}`;
+                window.open(url, '_blank');
+
+                mostrarPdfToast();
+
+            } catch (err) {
+                console.error('Error generando/compartiendo PDF:', err);
+                alert('Hubo un inconveniente al generar el PDF. Puedes imprimirlo o guardarlo con el botón "🖨️ Imprimir / Guardar PDF".');
+            } finally {
+                if (btn) {
+                    btn.innerHTML = originalBtnHtml;
+                    btn.disabled = false;
+                }
+                isSharingPdf = false;
+            }
+        }
+
+        function mostrarPdfToast() {
+            const toast = document.getElementById('pdfToast');
+            if (!toast) return;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 7000);
+        }
+
+        function abrirModalWhatsAppProforma() {
+            const modal = document.getElementById('waModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                enviarAWhatsAppProforma('59170612393');
+            }
+        }
+
+        function cerrarWaModal(event) {
+            if (event && event.target && event.target.closest('.wa-modal-card') && !event.target.classList.contains('wa-modal-close')) {
+                return;
+            }
+            const modal = document.getElementById('waModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function enviarAWhatsAppProforma(telefono) {
+            if (!cachedProformaData || !cachedProformaData.items || cachedProformaData.items.length === 0) {
+                alert('No hay productos cargados en esta proforma.');
+                cerrarWaModal();
+                return;
+            }
+
+            const docNum = cachedProformaData.docNum || 'COT-2026-001';
+            const fecha = cachedProformaData.fecha || new Date().toLocaleDateString('es-ES');
+            let total = 0;
+
+            let mensaje = `*¡Hola! Quisiera consultar la disponibilidad de stock de la siguiente Proforma SUNOTE:*\n\n`;
+            mensaje += `📋 *PROFORMA:* ${docNum}\n`;
+            mensaje += `📅 *FECHA:* ${fecha}\n\n`;
+            mensaje += `📦 *DETALLE DE PRODUCTOS:*\n`;
+
+            cachedProformaData.items.forEach(item => {
+                total += item.subtotal;
+                mensaje += `▪ *${item.cantidad}x ${item.modelo}* (${item.tamanos} · ${item.pr})\n`;
+                mensaje += `   P. Unit: Bs ${Number(item.precioUnitario).toLocaleString('es-BO', { minimumFractionDigits: 2 })} | Subtotal: *Bs ${Number(item.subtotal).toLocaleString('es-BO', { minimumFractionDigits: 2 })}*\n`;
+            });
+
+            mensaje += `\n💰 *TOTAL ESTIMADO: Bs ${Number(total).toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}*\n\n`;
+            mensaje += `¿Tienen stock disponible para entrega inmediata? Quedo atento a su confirmación. ¡Muchas gracias!`;
+
+            cerrarWaModal();
+            const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') cerrarWaModal();
+        });
+    </script>
+</body>
+
+</html>
