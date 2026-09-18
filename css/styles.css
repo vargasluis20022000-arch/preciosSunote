@@ -52,6 +52,12 @@ input::-webkit-inner-spin-button {
 }
 input[type=number] {
     -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -61,6 +67,7 @@ body {
     line-height: 1.5;
     min-height: 100vh;
     padding: 24px 16px 60px 16px;
+    overflow-x: hidden;
     background-image: 
         radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
         radial-gradient(circle at 85% 85%, rgba(0, 229, 255, 0.08) 0%, transparent 40%);
@@ -88,40 +95,24 @@ body {
     gap: 20px;
 }
 
-.brand {
+.brand-section {
     display: flex;
-    align-items: center;
-    gap: 16px;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.logo-img {
-    height: 56px;
+.logo-banner {
+    height: 46px;
+    max-width: 250px;
     width: auto;
     object-fit: contain;
-    filter: drop-shadow(0 4px 12px rgba(0, 229, 255, 0.35));
+    filter: drop-shadow(0 4px 12px rgba(239, 68, 68, 0.3));
     transition: transform 0.3s ease;
+    align-self: flex-start;
 }
 
-.brand:hover .logo-img {
-    transform: scale(1.05);
-}
-
-.brand h1 {
-    font-family: var(--font-heading);
-    font-size: 2.1rem;
-    font-weight: 900;
-    color: var(--text-primary);
-    letter-spacing: -0.5px;
-    line-height: 1.1;
-}
-
-.brand h1 small {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 800;
-    color: var(--accent-cyan);
-    letter-spacing: 3px;
-    text-transform: uppercase;
+.logo-banner:hover {
+    transform: scale(1.02);
 }
 
 .header-right {
@@ -132,17 +123,18 @@ body {
 }
 
 .doc-info {
-    text-align: right;
+    text-align: left;
     font-size: 0.92rem;
     color: var(--text-secondary);
-    border-right: 1px solid var(--border-color);
-    padding-right: 22px;
+    line-height: 1.4;
 }
 
 .doc-info strong {
     color: var(--accent-cyan);
-    font-size: 1.05rem;
+    font-size: 1.08rem;
     letter-spacing: 0.5px;
+    display: inline-block;
+    margin-bottom: 2px;
 }
 
 .contact-info {
@@ -271,32 +263,51 @@ body {
 }
 
 .dolar-bcb-container {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 12px;
-    flex-wrap: wrap;
+    width: 100%;
 }
 
 .dolar-box {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
     background: rgba(10, 15, 29, 0.85);
     border: 1px solid rgba(56, 189, 248, 0.35);
-    padding: 6px 14px;
-    border-radius: var(--radius-full);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
     transition: all 0.25s ease;
 }
 
 .dolar-box:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    border-color: rgba(56, 189, 248, 0.65);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 229, 255, 0.15);
 }
 
 .dolar-box.blue-box {
     border-color: rgba(245, 158, 11, 0.38);
-    background: rgba(16, 14, 26, 0.85);
+    background: rgba(18, 15, 26, 0.85);
+}
+
+.dolar-box.blue-box:hover {
+    border-color: rgba(245, 158, 11, 0.7);
+    box-shadow: 0 6px 18px rgba(245, 158, 11, 0.18);
+}
+
+.dolar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.dolar-title-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .dolar-icon {
@@ -304,24 +315,34 @@ body {
 }
 
 .dolar-label {
-    font-size: 0.86rem;
+    font-size: 0.9rem;
     font-weight: 700;
     color: var(--text-secondary);
 }
 
+.dolar-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 8px;
+}
+
 .dolar-value-badge {
     font-family: var(--font-heading);
-    font-size: 0.94rem;
+    font-size: 0.98rem;
     color: var(--text-primary);
     font-weight: 600;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
 }
 
 .dolar-value-badge strong {
     color: var(--accent-cyan);
-    font-size: 1.06rem;
+    font-size: 1.18rem;
     font-weight: 900;
 }
 
@@ -337,9 +358,8 @@ body {
     font-weight: 800;
     color: var(--accent-green);
     background: rgba(16, 185, 129, 0.15);
-    padding: 2px 8px;
+    padding: 3px 9px;
     border-radius: var(--radius-full);
-    margin-left: 3px;
 }
 
 .live-indicator.blue-indicator {
@@ -376,10 +396,10 @@ body {
     text-decoration: none;
     font-size: 0.78rem;
     font-weight: 700;
-    padding: 3px 9px;
+    padding: 4px 10px;
     border-radius: var(--radius-full);
     transition: all 0.2s ease;
-    margin-left: 2px;
+    white-space: nowrap;
 }
 
 .bcb-link-badge:hover {
@@ -399,10 +419,10 @@ body {
     text-decoration: none;
     font-size: 0.78rem;
     font-weight: 700;
-    padding: 3px 9px;
+    padding: 4px 10px;
     border-radius: var(--radius-full);
     transition: all 0.2s ease;
-    margin-left: 2px;
+    white-space: nowrap;
 }
 
 .blue-link-badge:hover {
@@ -1015,43 +1035,308 @@ body {
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (OPTIMIZADO PARA MÓVILES Y PANTALLAS PEQUEÑAS)
    ========================================================================== */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 10px;
+    }
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 20px;
+    }
+}
+
 @media (max-width: 768px) {
+    body {
+        padding: 14px 10px 40px 10px;
+    }
+
+    /* HEADER */
     .header {
         flex-direction: column;
-        align-items: flex-start;
-        padding: 18px;
+        align-items: stretch;
+        padding: 16px 14px;
+        gap: 16px;
     }
-    .header-right {
+
+    .brand-section {
         width: 100%;
-        justify-content: space-between;
-    }
-    .doc-info {
-        text-align: left;
-        border-right: none;
-        padding-right: 0;
-    }
-    .controls {
+        display: flex;
         flex-direction: column;
         align-items: flex-start;
+        gap: 8px;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 12px;
     }
+
+    .logo-banner {
+        height: 38px;
+        max-width: 200px;
+    }
+
+    .header-right {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .doc-info {
+        text-align: left;
+        font-size: 0.88rem;
+    }
+
+    .contact-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .wa-link {
+        font-size: 0.78rem;
+        padding: 8px 6px;
+        justify-content: center;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .btn-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .btn-group .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 11px 8px;
+        font-size: 0.88rem;
+    }
+
+    /* CONTROLES Y TASAS DE CAMBIO */
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .controls .info {
+        font-size: 0.86rem;
+        line-height: 1.35;
+    }
+
     .dolar-bcb-container {
         width: 100%;
-        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
+
+    .dolar-box {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--radius-md);
+        padding: 10px 14px;
+        gap: 8px;
+        box-sizing: border-box;
+    }
+
+    .dolar-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .dolar-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 8px;
+    }
+
+    .dolar-label {
+        font-size: 0.86rem;
+    }
+
+    .dolar-value-badge {
+        font-size: 0.94rem;
+    }
+
+    .dolar-value-badge strong {
+        font-size: 1.12rem;
+    }
+
+    .bcb-link-badge,
+    .blue-link-badge {
+        font-size: 0.74rem;
+        padding: 3px 8px;
+    }
+
+    .controls .actions {
+        width: 100%;
+    }
+
+    .controls .actions .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 11px;
+    }
+
+    /* FILTROS Y BÚSQUEDA */
     .filter-section {
         flex-direction: column;
         align-items: stretch;
+        padding: 14px;
+        gap: 12px;
     }
+
+    .search-box {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .search-box input {
+        font-size: 0.92rem;
+        padding: 10px 14px;
+    }
+
+    .filter-tags {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .filter-tags .tag {
+        flex: 1 1 auto;
+        min-width: 60px;
+        text-align: center;
+        padding: 7px 10px;
+        font-size: 0.82rem;
+    }
+
+    /* GRILLA DE PRODUCTOS */
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-bottom: 24px;
+    }
+
+    .card {
+        max-width: 100%;
+    }
+
+    /* Evitar que el hover se quede pegado en pantallas táctiles */
+    .card:hover {
+        transform: translateY(-2px);
+    }
+
+    .card-image {
+        height: 190px;
+    }
+
+    .tire-img {
+        max-height: 160px;
+    }
+
+    .price-unit-row {
+        padding: 8px 12px;
+    }
+
+    .price-unit-value {
+        font-size: 1.25rem;
+    }
+
+    .qty-control {
+        gap: 8px;
+    }
+
+    .btn-qty {
+        width: 44px;
+        height: 44px;
+        font-size: 1.4rem;
+    }
+
+    .qty-display {
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+    /* BARRA DE TOTALES */
     .total-row {
+        padding: 16px 18px;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        gap: 12px;
     }
+
+    .total-summary-left {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 10px;
+        font-size: 0.92rem;
+        gap: 10px;
+    }
+
+    .grand-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        font-size: 1.05rem;
+    }
+
+    .grand-total strong {
+        font-size: 1.55rem;
+    }
+
+    /* BOTÓN WHATSAPP */
     .btn-whatsapp-order {
         width: 100%;
         justify-content: center;
         font-size: 1.15rem;
         padding: 16px 20px;
+    }
+
+    /* LIGHTBOX EN MÓVIL */
+    .lightbox-content {
+        padding: 18px 14px;
+        max-width: 95vw;
+    }
+
+    .lightbox-caption {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .contact-info {
+        grid-template-columns: 1fr;
+    }
+
+    .dolar-bottom {
+        gap: 6px;
+    }
+
+    .dolar-value-badge {
+        font-size: 0.9rem;
+    }
+
+    .dolar-value-badge strong {
+        font-size: 1.05rem;
     }
 }
