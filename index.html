@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta SUNOTE · Llantas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="container" id="app">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="brand">
+                <img class="logo-img" id="logoImg" src="img/sunote.png" alt="SUNOTE Logo"
+                    onerror="this.style.display='none'">
+                <div>
+                    <h1>SUNOTE <small>LLANTAS</small></h1>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="doc-info">
+                    <strong>PROPUESTA COMERCIAL</strong><br>
+                    N° <span id="docNumber">COT-2026-001</span> · <span id="currentDate"></span>
+                </div>
+                <div class="contact-info no-print">
+                    <a class="wa-link"
+                        href="https://wa.me/59170612393?text=Hola%2C%20me%20interesa%20preguntar%20por%20las%20llantas%20SUNOTE"
+                        target="_blank">
+                        📱 (+591) 70612393
+                    </a>
+                    <a class="wa-link"
+                        href="https://wa.me/59165653396?text=Hola%2C%20me%20interesa%20preguntar%20por%20las%20llantas%20SUNOTE"
+                        target="_blank">
+                        📱 (+591) 65653396
+                    </a>
+                </div>
+                <div class="btn-group no-print">
+                    <button class="btn btn-success" onclick="generarProforma()">📄 Proforma</button>
+                    <button class="btn btn-primary" onclick="viewCatalog()">📋 Ver Catálogo</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTROLES -->
+        <div class="controls no-print">
+            <div class="info">
+                <span>⚙️</span>
+                <span>Precios en <strong>Bolivianos (BOB)</strong> · Selecciona la cantidad requerida</span>
+            </div>
+
+            <!-- COTIZACIONES REFERENCIALES EN TIEMPO REAL (BCB OFICIAL Y DÓLAR PARALELO) -->
+            <div class="dolar-bcb-container">
+                <!-- Dólar Oficial BCB -->
+                <div class="dolar-box bcb-box" id="dolarBcbBox"
+                    title="Cotización Oficial del Banco Central de Bolivia (www.bcb.gob.bo)">
+                    <span class="dolar-icon">🏦</span>
+                    <span class="dolar-label">BCB Oficial:</span>
+                    <span class="dolar-value-badge">
+                        1 USD = <strong id="dolarRateText">10.01</strong> BOB
+                        <span class="live-indicator" id="liveIndicator"
+                            title="Actualizado automáticamente desde el Banco Central de Bolivia">
+                            <span class="live-dot"></span> <span id="bcbDateText">Hoy</span>
+                        </span>
+                    </span>
+                    <a class="bcb-link-badge" href="https://www.bcb.gob.bo/" target="_blank"
+                        title="Consultar página oficial del Banco Central de Bolivia">
+                        bcb.gob.bo ↗
+                    </a>
+                </div>
+
+                <!-- Dólar Paralelo (Blue) -->
+                <div class="dolar-box blue-box" id="dolarBlueBox"
+                    title="Cotización del Dólar Paralelo (Blue) en Bolivia en tiempo real">
+                    <span class="dolar-icon">📈</span>
+                    <span class="dolar-label">Dólar Paralelo:</span>
+                    <span class="dolar-value-badge">
+                        1 USD = <strong id="dolarBlueRateText">11.78</strong> BOB
+                        <span class="live-indicator blue-indicator" id="blueLiveIndicator"
+                            title="Cotización de mercado paralelo en vivo">
+                            <span class="live-dot blue-dot"></span> En Vivo
+                        </span>
+                    </span>
+                    <a class="blue-link-badge" href="https://www.dolarbluebolivia.click/" target="_blank"
+                        title="Consultar cotización en tiempo real del Dólar Blue Bolivia">
+                        dolarbluebolivia.click ↗
+                    </a>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-warning" onclick="nuevaCotizacion()">✨ Nueva Cotización</button>
+            </div>
+        </div>
+
+        <!-- BUSCADOR Y FILTROS -->
+        <div class="filter-section no-print">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Buscar modelo de llanta (ej: SN 257, SN 228)..."
+                    oninput="handleSearch(this.value)">
+            </div>
+            <div class="filter-tags">
+                <span class="filter-label">Medidas:</span>
+                <button class="tag active" onclick="filterBySize('All', this)">Todas</button>
+                <button class="tag" onclick="filterBySize('295/80', this)">295/80</button>
+                <button class="tag" onclick="filterBySize('315/80', this)">315/80</button>
+                <button class="tag" onclick="filterBySize('275/70', this)">275/70</button>
+            </div>
+        </div>
+
+        <!-- GRID DE PRODUCTOS -->
+        <main class="grid" id="productGrid"></main>
+
+        <!-- TOTALES -->
+        <div class="total-row">
+            <div class="total-summary-left">
+                <span>Total unidades: <strong id="totalUnits">0</strong></span>
+                <span>Subtotal: <strong id="subtotal">Bs 0.00</strong></span>
+            </div>
+            <div>
+                <span class="grand-total">💰 Total general: <strong id="grandTotal">Bs 0.00</strong></span>
+            </div>
+        </div>
+
+        <!-- ACCIÓN DE COMPRA POR WHATSAPP -->
+        <div class="purchase-cta-area no-print">
+            <a class="btn-whatsapp-order" href="#" onclick="enviarPedidoWhatsApp(event)">
+                📱 Enviar Pedido por WhatsApp
+            </a>
+        </div>
+
+        <footer class="footer-note">
+            * Precios expresados exclusivamente en Bolivianos (BOB) · Fuente referencial cambiaria: Banco Central de
+            Bolivia (www.bcb.gob.bo) · Sujeto a disponibilidad de stock.
+        </footer>
+    </div>
+
+    <!-- ===== LIGHTBOX ===== -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <div class="lightbox-content" onclick="event.stopPropagation();">
+            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            <img id="lightboxImg" src="" alt="Vista ampliada">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
