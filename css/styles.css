@@ -1549,3 +1549,54 @@ body {
 .wa-advisor-btn:hover .wa-advisor-arrow {
     transform: translateX(4px);
 }
+
+.wa-section-title {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+    margin-bottom: 2px;
+}
+
+.wa-doc-badge {
+    background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 6px 9px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.35);
+    flex-shrink: 0;
+}
+
+.wa-advisor-btn.wa-pdf-highlight-btn {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.05) 100%);
+    border: 1.5px solid rgba(16, 185, 129, 0.45);
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.12);
+}
+
+.wa-advisor-btn.wa-pdf-highlight-btn:hover {
+    border-color: #10b981;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(5, 150, 105, 0.1) 100%);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+}
+
+.wa-quick-text-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.wa-advisor-btn.wa-text-opt-btn {
+    padding: 12px 14px;
+}
+
+@media (max-width: 580px) {
+    .wa-quick-text-grid {
+        grid-template-columns: 1fr;
+    }
+}
