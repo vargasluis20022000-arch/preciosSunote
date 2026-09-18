@@ -151,23 +151,60 @@ body {
     text-decoration: none;
     font-size: 0.88rem;
     font-weight: 600;
-    background: rgba(16, 185, 129, 0.12);
-    border: 1px solid rgba(16, 185, 129, 0.35);
-    padding: 6px 14px;
+    background: rgba(37, 211, 102, 0.12);
+    border: 1px solid rgba(37, 211, 102, 0.35);
+    padding: 7px 16px;
     border-radius: var(--radius-full);
     transition: all 0.25s ease;
 }
 
+.wa-icon {
+    width: 18px;
+    height: 18px;
+    fill: #25D366;
+    flex-shrink: 0;
+    transition: transform 0.25s ease, fill 0.25s ease;
+}
+
 .wa-link:hover {
-    background: #10b981;
+    background: #25D366;
+    color: white;
+    border-color: #25D366;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.45);
+}
+
+.wa-link:hover .wa-icon {
+    fill: white;
+    transform: scale(1.15);
+}
+
+.btn-wa {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+    transition: all 0.25s ease;
+}
+
+.btn-wa .wa-icon {
+    fill: white;
+}
+
+.btn-wa:hover {
+    background: linear-gradient(135deg, #1fa855 0%, #0d6e62 100%);
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 6px 22px rgba(37, 211, 102, 0.55);
 }
 
 .btn-group {
     display: flex;
-    gap: 12px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 /* ==========================================================================
@@ -935,6 +972,8 @@ body {
     box-shadow: 0 10px 30px rgba(16, 185, 129, 0.45);
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
 }
 
 .btn-whatsapp-order:hover {
@@ -1339,4 +1378,174 @@ body {
     .dolar-value-badge strong {
         font-size: 1.05rem;
     }
+}
+
+/* ==========================================================================
+   MODAL WHATSAPP ADVISOR SELECTION
+   ========================================================================== */
+.wa-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.wa-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.wa-modal-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 480px;
+    padding: 26px;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.wa-modal.active .wa-modal-card {
+    transform: scale(1);
+}
+
+.wa-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.wa-modal-header-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.wa-modal-header-text .wa-icon-large {
+    fill: #25D366;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.wa-modal-header-text h3 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.wa-modal-header-text p {
+    margin: 4px 0 0 0;
+    font-size: 0.86rem;
+    color: var(--text-muted);
+}
+
+.wa-modal-close {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.wa-modal-close:hover {
+    background: #ef4444;
+    color: white;
+    transform: scale(1.1);
+}
+
+.wa-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.wa-advisor-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.wa-advisor-btn:hover {
+    border-color: #25D366;
+    background: rgba(37, 211, 102, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2);
+}
+
+.wa-advisor-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.wa-advisor-left .wa-icon {
+    width: 24px;
+    height: 24px;
+    fill: #25D366;
+    transition: transform 0.25s ease;
+}
+
+.wa-advisor-btn:hover .wa-icon {
+    transform: scale(1.15);
+}
+
+.wa-advisor-data {
+    display: flex;
+    flex-direction: column;
+}
+
+.wa-advisor-data strong {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    color: var(--text-primary);
+}
+
+.wa-advisor-data span {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.wa-advisor-arrow {
+    font-size: 1.1rem;
+    color: #25D366;
+    transition: transform 0.2s ease;
+}
+
+.wa-advisor-btn:hover .wa-advisor-arrow {
+    transform: translateX(4px);
 }
