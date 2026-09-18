@@ -2,6 +2,7 @@
 //  CONFIGURACIÓN Y DATOS DE PRODUCTOS (PRECIOS FIJOS EN BOLIVIANOS)
 // ================================================================
 const LOGO_URL = 'img/sunote.png';
+const PUMA_FAVICON_DATA_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEvklEQVR4nO1WTWxUVRT+zn1vpjNDIdBhet99xY5KbaE0LAwhMWjAKLioC2OAyIKgLIwaIwkLdgoSTdhIFKJucOcCIZiYkAhKhMREAgFDoPRnHCtCYDpTWqSdKZ2fd4+5nXk4qUWeBnXTL3l5f/ec853vnPPuA2Yxi38ABgj/FxgQ04jck4x5b9YfAiyuHg+GeDaRaEy1tTU8CF8UdKFhfwqwWpqdvSGL3EkP31QYl7kU6l1+++qt6Wt3AfRSPD4H4XB7yKP5bLHNxeLp9tHRsfq1ImBwiwBepNTLENh8i/n1JbnMAYvLg5FoSV1sbpb18p4H7HcB7VmhV2Ogc57gEwJ0LBqODqaku9UkbnwGJuBDMz8rIE49PjQ0fBigzps3M+1DQ70Tlcqd/ni80dT7HBBaAZR7E2pdVIjdk8y6UQiUmccm4W3nsjhezQna+LT/DgFmniwTLzHXGwyfWtY0OjpmAl8G7BVA6SfXfYI0HwQhxoxiwdNfTNkTCrrBc/ri8TEaGRk3poEUOOUHIuppAJb1JBJO7bllDkPEZN0FlNLNapPQ/LUmLOBqpun2bGZLiL0dmmkdab3Yk7JYI8+BmtBIS4BOS9kVFdal2xpvdmZvfFy/pj+hVgkb28OgF0vMqABlAQgNFKKEgxXNj2jw2x3Z7Jl/NAU7AWE6e8BRPwgmOUdw5wRgyvGcZu4m0KoIEfLMprY6SmSbLrOIcEfrsbL2nlyay11iwCYYflXYARWg89VJKA+w3t0grKPjGudAeKyRyC4SochcyWutmSi0QAj7tud9LxjHQxa9MEHYvDyX669N093ggQjsrMkPoJxyWtYT6x2ms21BSytVqREGECGytRAw8o+zPjIfvEXlsoVDwJ6NgFfz4033b98n86ngF6Sc00i0B9CJCriLIKjErI3DIuOwBT3CTLc0vGEbONuRzZ419icB+2mgYhSsJYHABLgqlzfoOMkyaD8RvlqcyXx2Waqfo4SHNUPHSITynj7bkRv6aHrJzNnIXbd3mIn4E8RMDw1zE/xXKZeBaK8H/sAEH5ByZVTQozEiYYFfmdT604dC1oc9jrPe2P2STEZqqpnx8gNyLpGI3Wsjopk63QQ3Y2XbeG2hZW3LVSobYyTWjmuOzBXUWtDelx3Z7E6zIYl8/tuIEE/95nnPdGWz303r8qlZ73XdOBWLpaXVj8/9kVZqU8px951MJiO9jrN6wHE+v9bSsuaClM2ra2UzW6w5n5nrxgcd9eM15eqLUnb75avftlNNTfP64m5HfXl82D7LVFvbPCoU2jTTRrDOtw9l3roqF60sEb2RZ7214/r1gm9Uk9mbOo/fGDkDd21zIx9Rln00rdQ2ymT2+SQTAE2EQl6YuRXAQF1p/nAGAFeUWpV23P19Uq4x9wNNTS1pxzlwpbVV1WVF0zPw7Q8B4UGpPrnpLuK04x7rcZzOuz2VTEb6pNoVSH6/F8z3vl+phf49/gL173ul7L7iuH1pR+mUo04MOu47aUed7lfqPfPe34Z9kH9hMjsMiA3VDr47s7UZnnGE6uH/nvm2KSmfZ4huG4hp4htFz3u/a3g4H9QfZpI7CPzmDArCvwBfTdOA5n5N7QckUOazmAX+Y/wOhDEORN9lwD0AAAAASUVORK5CYII=';
 
 const productosData = [
     { id: 'sn228plus', modelo: 'SN 228+', tamanos: '295/80', pr: '18 PR', descripcion: 'Dirección / Tracción · Uso mixto', precioBase: 3000, imagen: 'img/SN228+.jpg' },
@@ -386,8 +387,9 @@ function viewCatalog() {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Catálogo de Llantas SUNOTE</title>
-            <link rel="icon" type="image/png" href="img/favicon-puma.png">
-            <link rel="shortcut icon" href="favicon.ico">
+            <link rel="icon" type="image/png" sizes="32x32" href="${PUMA_FAVICON_DATA_URI}">
+            <link rel="shortcut icon" type="image/png" href="${PUMA_FAVICON_DATA_URI}">
+            <link rel="apple-touch-icon" href="${PUMA_FAVICON_DATA_URI}">
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
                 * { box-sizing: border-box; }
@@ -591,8 +593,9 @@ function generarProforma() {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Proforma Comercial - ${docNum}</title>
-            <link rel="icon" type="image/png" href="img/favicon-puma.png">
-            <link rel="shortcut icon" href="favicon.ico">
+            <link rel="icon" type="image/png" sizes="32x32" href="${PUMA_FAVICON_DATA_URI}">
+            <link rel="shortcut icon" type="image/png" href="${PUMA_FAVICON_DATA_URI}">
+            <link rel="apple-touch-icon" href="${PUMA_FAVICON_DATA_URI}">
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
                 * { box-sizing: border-box; }
