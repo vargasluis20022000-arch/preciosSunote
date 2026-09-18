@@ -328,6 +328,36 @@ function cerrarWaModal(event) {
     }
 }
 
+function generarEnlaceProformaDigital(proformaData) {
+    try {
+        const compact = {
+            d: proformaData.docNum,
+            f: proformaData.fecha,
+            t: proformaData.total,
+            i: proformaData.items.map(it => ({
+                m: it.modelo,
+                s: it.tamanos,
+                p: it.pr,
+                d: it.descripcion || '',
+                q: it.cantidad,
+                u: it.precioUnitario,
+                t: it.subtotal
+            }))
+        };
+        const jsonStr = JSON.stringify(compact);
+        const b64 = btoa(unescape(encodeURIComponent(jsonStr)));
+        let base = 'https://preciosunote.netlify.app/proforma.html';
+        if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+            const loc = window.location.href.split('?')[0];
+            base = loc.replace(/\/[^\/]*$/, '/proforma.html');
+        }
+        return `${base}?d=${encodeURIComponent(b64)}`;
+    } catch (e) {
+        console.error('Error generando link proforma:', e);
+        return 'https://preciosunote.netlify.app/proforma.html';
+    }
+}
+
 function enviarAWhatsApp(telefono) {
     const seleccionados = productosData.filter(p => (cantidades[p.id] || 0) > 0);
     if (seleccionados.length === 0) {
@@ -340,40 +370,7 @@ function enviarAWhatsApp(telefono) {
     const fecha = document.getElementById('currentDate')?.innerText || new Date().toLocaleDateString('es-ES');
     let total = 0;
 
-    let mensaje = `*¡Hola! Quisiera consultar la disponibilidad de stock de la siguiente Proforma SUNOTE:*\n\n`;
-    mensaje += `📋 *PROFORMA:* ${docNum}\n`;
-    mensaje += `📅 *FECHA:* ${fecha}\n\n`;
-    mensaje += `📦 *DETALLE DE PRODUCTOS:*\n`;
-
-    seleccionados.forEach((p) => {
-        const qty = cantidades[p.id];
-        const precio = p.precioBase;
-        const sub = qty * precio;
-        total += sub;
-        mensaje += `▪ *${qty}x ${p.modelo}* (${p.tamanos} · ${p.pr})\n`;
-        mensaje += `   P. Unit: Bs ${precio.toLocaleString('es-BO', { minimumFractionDigits: 2 })} | Subtotal: *Bs ${sub.toLocaleString('es-BO', { minimumFractionDigits: 2 })}*\n`;
-    });
-
-    mensaje += `\n💰 *TOTAL ESTIMADO: Bs ${total.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}*\n\n`;
-    mensaje += `¿Tienen stock disponible para entrega inmediata? Quedo atento a su confirmación. ¡Muchas gracias!`;
-
-    cerrarWaModal();
-    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
-}
-
-function enviarProformaPDFWhatsApp(advisorPhone) {
-    const seleccionados = productosData.filter(p => (cantidades[p.id] || 0) > 0);
-    if (seleccionados.length === 0) {
-        alert('⚠️ Selecciona al menos 1 producto con cantidad mayor a 0 (+ / −) para generar la proforma.');
-        cerrarWaModal();
-        return;
-    }
-
-    const docNum = document.getElementById('docNumber')?.innerText || 'COT-2026-001';
-    const fecha = document.getElementById('currentDate')?.innerText || new Date().toLocaleDateString('es-ES');
-    let total = 0;
-    const items = seleccionados.map(p => {
+    const items = seleccionados.map((p) => {
         const qty = cantidades[p.id];
         const precio = p.precioBase;
         const sub = qty * precio;
@@ -397,13 +394,25 @@ function enviarProformaPDFWhatsApp(advisorPhone) {
     };
 
     localStorage.setItem('sunote_current_proforma', JSON.stringify(proformaData));
-    cerrarWaModal();
+    const proformaUrl = generarEnlaceProformaDigital(proformaData);
 
-    const phoneParam = advisorPhone ? `&advisor=${advisorPhone}` : '';
-    const win = window.open(`proforma.html?sharePdf=1${phoneParam}`, '_blank');
-    if (!win) {
-        alert('⚠️ Por favor permite las ventanas emergentes (popups) en tu navegador para generar y compartir el PDF.');
-    }
+    let mensaje = `*¡Hola! Quisiera consultar la disponibilidad de stock de la siguiente Proforma SUNOTE:*\n\n`;
+    mensaje += `📋 *PROFORMA:* ${docNum}\n`;
+    mensaje += `📅 *FECHA:* ${fecha}\n\n`;
+    mensaje += `📦 *DETALLE DE PRODUCTOS:*\n`;
+
+    items.forEach((item) => {
+        mensaje += `▪ *${item.cantidad}x ${item.modelo}* (${item.tamanos} · ${item.pr})\n`;
+        mensaje += `   P. Unit: Bs ${Number(item.precioUnitario).toLocaleString('es-BO', { minimumFractionDigits: 2 })} | Subtotal: *Bs ${Number(item.subtotal).toLocaleString('es-BO', { minimumFractionDigits: 2 })}*\n`;
+    });
+
+    mensaje += `\n💰 *TOTAL ESTIMADO: Bs ${Number(total).toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}*\n\n`;
+    mensaje += `📄 *Ver Proforma Oficial Membretada Online:*\n${proformaUrl}\n\n`;
+    mensaje += `¿Tienen stock disponible para entrega inmediata? Quedo atento a su confirmación. ¡Muchas gracias!`;
+
+    cerrarWaModal();
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
 }
 
 // Alias de compatibilidad
