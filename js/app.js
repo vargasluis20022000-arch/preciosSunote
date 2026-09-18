@@ -296,33 +296,75 @@ function nuevaCotizacion() {
     renderGrid();
 }
 
-// ========== WHATSAPP ORDER (100% EN BOB) ==========
-function enviarPedidoWhatsApp(event) {
+// ================================================================
+//  CONSULTA DE STOCK Y PROFORMA POR WHATSAPP (100% EN BOB)
+// ================================================================
+function abrirModalWhatsApp(event) {
     if (event) event.preventDefault();
 
     const seleccionados = productosData.filter(p => (cantidades[p.id] || 0) > 0);
     if (seleccionados.length === 0) {
-        alert('⚠️ No tienes productos seleccionados. Ajusta las cantidades (+ / −) antes de enviar.');
+        alert('⚠️ Selecciona al menos 1 producto con cantidad mayor a 0 (+ / −) para consultar disponibilidad de stock.');
         return;
     }
 
-    const docNumber = document.getElementById('docNumber').innerText;
-    let mensaje = `*COTIZACIÓN SUNOTE LLANTAS - ${docNumber}*\n\n`;
+    const modal = document.getElementById('waModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    } else {
+        enviarAWhatsApp('59170612393');
+    }
+}
+
+function cerrarWaModal(event) {
+    if (event && event.target && event.target.closest('.wa-modal-card') && !event.target.classList.contains('wa-modal-close')) {
+        return;
+    }
+    const modal = document.getElementById('waModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+function enviarAWhatsApp(telefono) {
+    const seleccionados = productosData.filter(p => (cantidades[p.id] || 0) > 0);
+    if (seleccionados.length === 0) {
+        alert('⚠️ Selecciona al menos 1 producto con cantidad mayor a 0 (+ / −) antes de enviar.');
+        cerrarWaModal();
+        return;
+    }
+
+    const docNum = document.getElementById('docNumber')?.innerText || 'COT-2026-001';
+    const fecha = document.getElementById('currentDate')?.innerText || new Date().toLocaleDateString('es-ES');
     let total = 0;
 
-    seleccionados.forEach(p => {
+    let mensaje = `*¡Hola! Quisiera consultar la disponibilidad de stock de la siguiente Proforma SUNOTE:*\n\n`;
+    mensaje += `📋 *PROFORMA:* ${docNum}\n`;
+    mensaje += `📅 *FECHA:* ${fecha}\n\n`;
+    mensaje += `📦 *DETALLE DE PRODUCTOS:*\n`;
+
+    seleccionados.forEach((p) => {
         const qty = cantidades[p.id];
         const precio = p.precioBase;
         const sub = qty * precio;
         total += sub;
-        mensaje += `▪ *${p.modelo}* (${p.tamanos} ${p.pr})\n  ${qty} un. x Bs ${precio.toLocaleString('es-BO', { minimumFractionDigits: 2 })} = *Bs ${sub.toLocaleString('es-BO', { minimumFractionDigits: 2 })}*\n`;
+        mensaje += `▪ *${qty}x ${p.modelo}* (${p.tamanos} · ${p.pr})\n`;
+        mensaje += `   P. Unit: Bs ${precio.toLocaleString('es-BO', { minimumFractionDigits: 2 })} | Subtotal: *Bs ${sub.toLocaleString('es-BO', { minimumFractionDigits: 2 })}*\n`;
     });
 
-    mensaje += `\n💰 *TOTAL GENERAL: Bs ${total.toLocaleString('es-BO', { minimumFractionDigits: 2 })}*\n`;
-    mensaje += `\n_Solicito confirmación de stock y entrega._`;
+    mensaje += `\n💰 *TOTAL ESTIMADO: Bs ${total.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}*\n\n`;
+    mensaje += `¿Tienen stock disponible para entrega inmediata? Quedo atento a su confirmación. ¡Muchas gracias!`;
 
-    const url = `https://wa.me/59170612393?text=${encodeURIComponent(mensaje)}`;
+    cerrarWaModal();
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank');
+}
+
+// Alias de compatibilidad
+function enviarPedidoWhatsApp(event) {
+    abrirModalWhatsApp(event);
 }
 
 // ========== LIGHTBOX ==========
@@ -343,207 +385,22 @@ function closeLightbox() {
 }
 
 document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'Escape') {
+        closeLightbox();
+        cerrarWaModal();
+    }
 });
 
 // ================================================================
 //  VER CATÁLOGO PROFESIONAL (DISEÑO EXACTO AL PDF - 100% EN BOB)
 // ================================================================
 function viewCatalog() {
-    const cotizacionNum = document.getElementById('docNumber').innerText;
-    const today = new Date();
-    const dateStr = today.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
-
-    const win = window.open('', '_blank');
+    const cotizacionNum = document.getElementById('docNumber')?.innerText || 'COT-2026-001';
+    localStorage.setItem('sunote_catalog_doc', cotizacionNum);
+    const win = window.open('catalogo.html', '_blank');
     if (!win) {
         alert('⚠️ Por favor permite las ventanas emergentes (popups) en tu navegador para ver el catálogo.');
-        return;
     }
-
-    let cardsHtml = '';
-    productosData.forEach(p => {
-        const precio = p.precioBase;
-        const imgSrc = p.imagen;
-        const badgePr = p.pr;
-
-        cardsHtml += `
-            <div class="cat-card" onclick="openCatLightbox('${imgSrc}', '${p.modelo} · ${p.tamanos}')">
-                ${badgePr ? `<span class="badge-cat">${badgePr}</span>` : ''}
-                <div class="img-container">
-                    <img src="${imgSrc}" alt="${p.modelo}" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'200\\' height=\\'140\\'><rect fill=\\'%23f8fafc\\' width=\\'200\\' height=\\'140\\'/><text fill=\\'%2394a3b8\\' x=\\'50%\\' y=\\'50%\\' text-anchor=\\'middle\\'>${p.modelo}</text></svg>'">
-                </div>
-                <div class="model">${p.modelo}</div>
-                <div class="spec">${p.tamanos} · ${badgePr}</div>
-                <div class="desc">${p.descripcion}</div>
-                <div class="price">Bs ${precio.toFixed(2)}</div>
-            </div>
-        `;
-    });
-
-    const html = `
-        <!DOCTYPE html>
-        <html lang="es">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Catálogo de Llantas SUNOTE</title>
-            <link rel="icon" type="image/png" sizes="32x32" href="${PUMA_FAVICON_DATA_URI}">
-            <link rel="shortcut icon" type="image/png" href="${PUMA_FAVICON_DATA_URI}">
-            <link rel="apple-touch-icon" href="${PUMA_FAVICON_DATA_URI}">
-            <style>
-                @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
-                * { box-sizing: border-box; }
-                body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; padding: 40px 20px; background: #f8fafc; margin: 0; color: #0f172a; }
-                .catalog-wrapper { max-width: 1200px; margin: 0 auto; background: white; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); padding: 45px; border: 1px solid #e2e8f0; }
-                
-                /* Header Grid */
-                .header-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; align-items: start; border-bottom: 2px solid #0f172a; padding-bottom: 26px; margin-bottom: 35px; }
-                .company-info .logo { max-height: 58px; margin-bottom: 12px; }
-                .company-info h1 { font-family: 'Outfit', sans-serif; font-size: 2.3rem; color: #0f172a; margin: 0; font-weight: 900; letter-spacing: -0.5px; }
-                .company-info h1 small { color: #64748b; font-size: 1.05rem; font-weight: 700; letter-spacing: 2px; display: block; margin-top: 4px; }
-                .doc-meta { margin-top: 14px; font-size: 0.95rem; color: #334155; line-height: 1.6; }
-                .doc-meta strong { color: #0f172a; }
-                
-                .catalog-contact { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
-                .catalog-contact a { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 0.85rem; transition: all 0.2s; }
-                .catalog-contact a:hover { background: #10b981; color: white; transform: translateY(-1px); }
-                
-                .qr-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 18px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-                .qr-card img { width: 120px; height: 120px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #e2e8f0; }
-                .qr-card span { font-size: 0.8rem; font-weight: 800; color: #0f172a; letter-spacing: 1px; text-transform: uppercase; }
-                .qr-card a { font-size: 0.82rem; color: #0284c7; text-decoration: none; margin-top: 4px; font-weight: 600; }
-                .qr-card a:hover { text-decoration: underline; }
-                
-                /* Catalog Cards Grid (4 columnas en desktop) */
-                .catalog-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-                
-                .cat-card { background: white; border: 1px solid #e2e8f0; border-radius: 18px; padding: 20px; display: flex; flex-direction: column; text-align: center; position: relative; box-shadow: 0 6px 20px rgba(0,0,0,0.04); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease; cursor: pointer; }
-                .cat-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 15px 35px rgba(2, 132, 199, 0.15); border-color: #0284c7; }
-                
-                .img-container { background: #f8fafc; border-radius: 14px; padding: 14px; height: 160px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; border: 1px solid #f1f5f9; transition: transform 0.3s ease; }
-                .cat-card:hover .img-container { background: #f0f9ff; }
-                .cat-card img { max-width: 100%; max-height: 140px; object-fit: contain; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15)); }
-                .cat-card:hover img { transform: scale(1.1); }
-                
-                .cat-card .model { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
-                .cat-card .spec { color: #64748b; font-size: 0.9rem; margin: 3px 0; font-weight: 600; }
-                .cat-card .desc { color: #475569; font-size: 0.84rem; line-height: 1.4; margin-top: 8px; flex-grow: 1; }
-                .cat-card .price { font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 800; color: #d97706; margin-top: 14px; border-top: 1px solid #f1f5f9; padding-top: 12px; }
-                
-                .badge-cat { position: absolute; top: 12px; left: 12px; background: #0f172a; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px; }
-                
-                .footer { margin-top: 40px; text-align: center; color: #64748b; font-size: 0.88rem; border-top: 1px solid #e2e8f0; padding-top: 24px; font-weight: 600; }
-                .print-btn { text-align: center; margin-top: 30px; }
-                .print-btn button { padding: 14px 40px; background: #0f172a; color: white; border: none; border-radius: 30px; font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 800; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 6px 18px rgba(15,23,42,0.2); }
-                .print-btn button:hover { background: #0284c7; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(2,132,199,0.35); }
-                .print-hint { text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 8px; }
-                
-                /* Lightbox */
-                .cat-lightbox { display: none; position: fixed; z-index: 9999; top:0; left:0; width:100%; height:100%; background: rgba(15,23,42,0.9); backdrop-filter: blur(8px); justify-content: center; align-items: center; padding:20px; opacity:0; transition: opacity 0.3s ease; }
-                .cat-lightbox.active { display: flex; opacity: 1; }
-                .cat-lightbox-content { max-width:90vw; max-height:85vh; background:white; border-radius:20px; padding:20px; box-shadow:0 30px 60px rgba(0,0,0,0.4); position:relative; transform:scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; }
-                .cat-lightbox.active .cat-lightbox-content { transform:scale(1); }
-                .cat-lightbox-content img { max-width:100%; max-height:70vh; display:block; border-radius:12px; object-fit: contain; margin: 0 auto 12px auto; }
-                .cat-lightbox-caption { font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 800; color: #0f172a; }
-                .cat-lightbox-close { position:absolute; top:-12px; right:-12px; background:#ef4444; color:white; border:none; width:38px; height:38px; border-radius:50%; font-size:1.3rem; font-weight:bold; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-                .cat-lightbox-close:hover { transform:scale(1.1); background:#dc2626; }
-                
-                @media print {
-                    body { padding: 0; background: white; }
-                    .catalog-wrapper { box-shadow: none; padding: 0; border: none; }
-                    .print-btn, .print-hint { display: none !important; }
-                    .catalog-grid { gap: 18px; grid-template-columns: repeat(2, 1fr); }
-                    .cat-card { break-inside: avoid; border: 1px solid #cbd5e1 !important; box-shadow: none !important; border-radius: 14px; page-break-inside: avoid; }
-                    .cat-card:hover { transform: none; }
-                    .qr-card { background: white !important; border: 1px solid #cbd5e1 !important; }
-                }
-                @media (max-width: 1024px) {
-                    .catalog-grid { grid-template-columns: repeat(3, 1fr); }
-                }
-                @media (max-width: 768px) {
-                    .header-grid { grid-template-columns: 1fr; gap: 20px; }
-                    .qr-card { width: 100%; max-width: 260px; margin: 0 auto; }
-                    .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-                    .catalog-wrapper { padding: 22px; }
-                }
-                @media (max-width: 480px) {
-                    .catalog-grid { grid-template-columns: 1fr; }
-                }
-            </style>
-        </head>
-        <body>
-            <div class="catalog-wrapper">
-                <div class="header-grid">
-                    <div class="company-info">
-                        <img class="logo" src="${LOGO_URL}" alt="Logo SUNOTE" onerror="this.style.display='none'">
-                        <h1>SUNOTE <small>CATÁLOGO DE LLANTAS</small></h1>
-                        <div class="doc-meta">
-                            <strong>Documento Comercial N° ${cotizacionNum}</strong><br>
-                            Fecha de generación: ${dateStr}<br>
-                            Precios de referencia expresados exclusivamente en Bolivianos (BOB)<br>
-                            Contacto Comercial:
-                            <div class="catalog-contact">
-                                <a href="https://wa.me/59170612393?text=Hola%2C%20vi%20su%20catálogo%20SUNOTE" target="_blank">📱 (+591) 70612393</a>
-                                <a href="https://wa.me/59165653396?text=Hola%2C%20vi%20su%20catálogo%20SUNOTE" target="_blank">📱 (+591) 65653396</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="qr-card">
-                        <img src="img/qr-ubicacion.png" alt="Código QR Ubicación" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fmaps.app.goo.gl%2FtoY3XgeCw8wYBZ199'">
-                        <span>Nuestra Ubicación</span>
-                        <a href="https://maps.app.goo.gl/toY3XgeCw8wYBZ199" target="_blank">Ver en Google Maps</a>
-                    </div>
-                </div>
-
-                <div class="catalog-grid">
-                    ${cardsHtml}
-                </div>
-                
-                <div class="footer">
-                    * Precios en Bolivianos (BOB) · Sujeto a disponibilidad de stock · Ref. Bancaria BCB (www.bcb.gob.bo).
-                </div>
-
-                <div class="print-btn">
-                    <button onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
-                </div>
-                <div class="print-hint">💡 Para guardar como PDF, selecciona 'Guardar como PDF' en el diálogo de impresión.</div>
-            </div>
-
-            <!-- Lightbox Modal del Catálogo -->
-            <div class="cat-lightbox" id="catLightbox" onclick="closeCatLightbox(event)">
-                <div class="cat-lightbox-content" onclick="event.stopPropagation();">
-                    <button class="cat-lightbox-close" onclick="closeCatLightbox()">✕</button>
-                    <img id="catLightboxImg" src="" alt="Vista ampliada">
-                    <div class="cat-lightbox-caption" id="catLightboxCaption"></div>
-                </div>
-            </div>
-
-            <script>
-                function openCatLightbox(src, caption) {
-                    const lb = document.getElementById('catLightbox');
-                    const img = document.getElementById('catLightboxImg');
-                    const cap = document.getElementById('catLightboxCaption');
-                    img.src = src;
-                    cap.innerText = caption;
-                    lb.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
-                function closeCatLightbox() {
-                    const lb = document.getElementById('catLightbox');
-                    lb.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') closeCatLightbox();
-                });
-            <\/script>
-        </body>
-        </html>
-    `;
-
-    win.document.write(html);
-    win.document.close();
-    win.focus();
 }
 
 // ================================================================
@@ -556,127 +413,37 @@ function generarProforma() {
         return;
     }
 
-    const docNum = document.getElementById('docNumber').innerText;
-    const fecha = document.getElementById('currentDate').innerText;
+    const docNum = document.getElementById('docNumber')?.innerText || 'COT-2026-001';
+    const fecha = document.getElementById('currentDate')?.innerText || new Date().toLocaleDateString('es-ES');
     let total = 0;
-    let rowsHtml = '';
-
-    seleccionados.forEach((p, idx) => {
+    const items = seleccionados.map(p => {
         const qty = cantidades[p.id];
         const precio = p.precioBase;
         const sub = qty * precio;
         total += sub;
-        rowsHtml += `
-            <tr>
-                <td style="text-align:center; font-weight:bold;">${idx + 1}</td>
-                <td>
-                    <strong style="font-size:1.05rem; color:#0f172a;">${p.modelo}</strong> (${p.tamanos} · ${p.pr})
-                    <div style="color:#64748b; font-size:0.85rem; margin-top:2px;">${p.descripcion}</div>
-                </td>
-                <td style="text-align:center; font-weight:bold; font-size:1rem;">${qty}</td>
-                <td style="text-align:right;">Bs ${precio.toLocaleString('es-BO', { minimumFractionDigits: 2 })}</td>
-                <td style="text-align:right; font-weight:800; color:#0f172a;">Bs ${sub.toLocaleString('es-BO', { minimumFractionDigits: 2 })}</td>
-            </tr>
-        `;
+        return {
+            modelo: p.modelo,
+            tamanos: p.tamanos,
+            pr: p.pr,
+            descripcion: p.descripcion,
+            cantidad: qty,
+            precioUnitario: precio,
+            subtotal: sub
+        };
     });
 
-    const win = window.open('', '_blank');
+    const proformaData = {
+        docNum: docNum,
+        fecha: fecha,
+        total: total,
+        items: items
+    };
+
+    localStorage.setItem('sunote_current_proforma', JSON.stringify(proformaData));
+    const win = window.open('proforma.html', '_blank');
     if (!win) {
         alert('⚠️ Por favor permite las ventanas emergentes (popups) en tu navegador para ver la proforma.');
-        return;
     }
-
-    win.document.write(`
-        <!DOCTYPE html>
-        <html lang="es">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Proforma Comercial - ${docNum}</title>
-            <link rel="icon" type="image/png" sizes="32x32" href="${PUMA_FAVICON_DATA_URI}">
-            <link rel="shortcut icon" type="image/png" href="${PUMA_FAVICON_DATA_URI}">
-            <link rel="apple-touch-icon" href="${PUMA_FAVICON_DATA_URI}">
-            <style>
-                @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
-                * { box-sizing: border-box; }
-                body { font-family: 'Plus Jakarta Sans', sans-serif; padding: 40px 20px; color: #0f172a; background: #f8fafc; margin: 0; }
-                .paper { max-width: 900px; margin: 0 auto; background: white; padding: 45px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
-                .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #0f172a; padding-bottom: 24px; margin-bottom: 28px; gap: 20px; }
-                .logo-box { display: flex; flex-direction: column; align-items: flex-start; }
-                .proforma-logo { height: 48px; max-width: 250px; width: auto; object-fit: contain; margin-bottom: 6px; }
-                .meta-box { text-align: right; }
-                .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 24px; border: 1px solid #e2e8f0; border-radius: 12px; }
-                table { width: 100%; border-collapse: collapse; min-width: 480px; }
-                th, td { padding: 14px 16px; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
-                th { background: #f1f5f9; font-weight: 800; text-align: left; color: #0f172a; font-family: 'Outfit', sans-serif; }
-                .total-box { text-align: right; margin-top: 24px; font-family: 'Outfit', sans-serif; font-size: 1.45rem; font-weight: 900; color: #0284c7; background: #f0f9ff; padding: 16px 20px; border-radius: 12px; border: 1px solid #bae6fd; }
-                .btn-print { background: #0f172a; color: white; border: none; padding: 12px 32px; border-radius: 30px; font-family: 'Outfit', sans-serif; font-weight: 800; cursor: pointer; margin-bottom: 24px; transition: all 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
-                .btn-print:hover { background: #0284c7; transform: translateY(-1px); }
-                
-                @media (max-width: 640px) {
-                    body { padding: 16px 10px; }
-                    .paper { padding: 22px 14px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-                    .header { flex-direction: column; align-items: flex-start; gap: 14px; padding-bottom: 18px; margin-bottom: 18px; }
-                    .proforma-logo { height: 40px; max-width: 210px; }
-                    .meta-box { text-align: left; width: 100%; border-top: 1px solid #e2e8f0; padding-top: 12px; }
-                    .table-container { margin-top: 16px; }
-                    th, td { padding: 10px 8px; font-size: 0.85rem; }
-                    .total-box { font-size: 1.25rem; text-align: center; padding: 14px 10px; }
-                    .btn-print { width: 100%; padding: 14px; font-size: 1rem; }
-                }
-
-                @media print {
-                    .btn-print { display: none !important; }
-                    body { padding: 0; background: white; }
-                    .paper { box-shadow: none; padding: 0; border: none; }
-                    .table-container { border: none; }
-                    table { min-width: 100%; }
-                }
-            </style>
-        </head>
-        <body>
-            <div class="paper">
-                <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Guardar Proforma PDF</button>
-                <div class="header">
-                    <div class="logo-box">
-                        <img class="proforma-logo" src="img/sunote.png" alt="SUNOTE" onerror="this.style.display='none'">
-                        <p style="margin: 4px 0 0 0; color: #64748b; font-size: 0.88rem;">Garantía y Rendimiento Superior · Bolivia</p>
-                    </div>
-                    <div class="meta-box">
-                        <h3 style="margin: 0; color: #0284c7; font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 800;">PROFORMA COMERCIAL</h3>
-                        <p style="margin: 4px 0 0 0; font-size: 0.92rem;"><strong>N°:</strong> ${docNum}</p>
-                        <p style="margin: 2px 0 0 0; font-size: 0.92rem;"><strong>Fecha:</strong> ${fecha}</p>
-                    </div>
-                </div>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width:40px; text-align:center;">#</th>
-                                <th>Detalle de Llanta</th>
-                                <th style="text-align:center; width:70px;">Cant.</th>
-                                <th style="text-align:right; width:110px;">P. Unit</th>
-                                <th style="text-align:right; width:120px;">Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${rowsHtml}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="total-box">
-                    TOTAL GENERAL: Bs ${total.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                </div>
-                <div style="margin-top: 28px; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 0.85rem; color: #475569; line-height: 1.6;">
-                    ▪ Precios expresados en Bolivianos (BOB) con entrega inmediata.<br>
-                    ▪ Proforma válida por 15 días calendario.<br>
-                    ▪ Contacto Comercial: (+591) 70612393 / (+591) 65653396.
-                </div>
-            </div>
-        </body>
-        </html>
-    `);
-    win.document.close();
 }
 
 // ========== INICIALIZACIÓN INMEDIATA ==========
