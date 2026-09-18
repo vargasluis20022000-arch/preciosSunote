@@ -17,18 +17,15 @@
     <div class="container" id="app">
         <!-- HEADER -->
         <header class="header">
-            <div class="brand">
-                <img class="logo-img" id="logoImg" src="img/sunote.png" alt="SUNOTE Logo"
+            <div class="brand-section">
+                <img class="logo-banner" id="logoImg" src="img/sunote.png" alt="SUNOTE Logo"
                     onerror="this.style.display='none'">
-                <div>
-                    <h1>SUNOTE <small>LLANTAS</small></h1>
-                </div>
-            </div>
-            <div class="header-right">
                 <div class="doc-info">
                     <strong>PROPUESTA COMERCIAL</strong><br>
                     N° <span id="docNumber">COT-2026-001</span> · <span id="currentDate"></span>
                 </div>
+            </div>
+            <div class="header-right">
                 <div class="contact-info no-print">
                     <a class="wa-link"
                         href="https://wa.me/59170612393?text=Hola%2C%20me%20interesa%20preguntar%20por%20las%20llantas%20SUNOTE"
@@ -60,37 +57,49 @@
                 <!-- Dólar Oficial BCB -->
                 <div class="dolar-box bcb-box" id="dolarBcbBox"
                     title="Cotización Oficial del Banco Central de Bolivia (www.bcb.gob.bo)">
-                    <span class="dolar-icon">🏦</span>
-                    <span class="dolar-label">BCB Oficial:</span>
-                    <span class="dolar-value-badge">
-                        1 USD = <strong id="dolarRateText">10.01</strong> BOB
+                    <div class="dolar-top">
+                        <div class="dolar-title-group">
+                            <span class="dolar-icon">🏦</span>
+                            <span class="dolar-label">BCB Oficial</span>
+                        </div>
                         <span class="live-indicator" id="liveIndicator"
                             title="Actualizado automáticamente desde el Banco Central de Bolivia">
                             <span class="live-dot"></span> <span id="bcbDateText">Hoy</span>
                         </span>
-                    </span>
-                    <a class="bcb-link-badge" href="https://www.bcb.gob.bo/" target="_blank"
-                        title="Consultar página oficial del Banco Central de Bolivia">
-                        bcb.gob.bo ↗
-                    </a>
+                    </div>
+                    <div class="dolar-bottom">
+                        <span class="dolar-value-badge">
+                            1 USD = <strong id="dolarRateText">10.01</strong> BOB
+                        </span>
+                        <a class="bcb-link-badge" href="https://www.bcb.gob.bo/" target="_blank"
+                            title="Consultar página oficial del Banco Central de Bolivia">
+                            bcb.gob.bo ↗
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Dólar Paralelo (Blue) -->
                 <div class="dolar-box blue-box" id="dolarBlueBox"
                     title="Cotización del Dólar Paralelo (Blue) en Bolivia en tiempo real">
-                    <span class="dolar-icon">📈</span>
-                    <span class="dolar-label">Dólar Paralelo:</span>
-                    <span class="dolar-value-badge">
-                        1 USD = <strong id="dolarBlueRateText">11.78</strong> BOB
+                    <div class="dolar-top">
+                        <div class="dolar-title-group">
+                            <span class="dolar-icon">📈</span>
+                            <span class="dolar-label">Dólar Paralelo</span>
+                        </div>
                         <span class="live-indicator blue-indicator" id="blueLiveIndicator"
                             title="Cotización de mercado paralelo en vivo">
                             <span class="live-dot blue-dot"></span> En Vivo
                         </span>
-                    </span>
-                    <a class="blue-link-badge" href="https://www.dolarbluebolivia.click/" target="_blank"
-                        title="Consultar cotización en tiempo real del Dólar Blue Bolivia">
-                        dolarbluebolivia.click ↗
-                    </a>
+                    </div>
+                    <div class="dolar-bottom">
+                        <span class="dolar-value-badge">
+                            1 USD = <strong id="dolarBlueRateText">11.78</strong> BOB
+                        </span>
+                        <a class="blue-link-badge" href="https://www.dolarbluebolivia.click/" target="_blank"
+                            title="Consultar cotización en tiempo real del Dólar Blue Bolivia">
+                            dolarbluebolivia.click ↗
+                        </a>
+                    </div>
                 </div>
             </div>
 
