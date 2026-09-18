@@ -588,16 +588,37 @@ function generarProforma() {
                 * { box-sizing: border-box; }
                 body { font-family: 'Plus Jakarta Sans', sans-serif; padding: 40px 20px; color: #0f172a; background: #f8fafc; margin: 0; }
                 .paper { max-width: 900px; margin: 0 auto; background: white; padding: 45px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
-                .header { display: flex; justify-content: space-between; align-items: start; border-bottom: 2px solid #0f172a; padding-bottom: 24px; margin-bottom: 28px; }
-                .logo-box h1 { font-family: 'Outfit', sans-serif; margin: 0; font-size: 2.2rem; font-weight: 900; }
-                .logo-box small { color: #0284c7; letter-spacing: 2px; font-weight: 800; display: block; }
-                table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+                .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #0f172a; padding-bottom: 24px; margin-bottom: 28px; gap: 20px; }
+                .logo-box { display: flex; flex-direction: column; align-items: flex-start; }
+                .proforma-logo { height: 48px; max-width: 250px; width: auto; object-fit: contain; margin-bottom: 6px; }
+                .meta-box { text-align: right; }
+                .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 24px; border: 1px solid #e2e8f0; border-radius: 12px; }
+                table { width: 100%; border-collapse: collapse; min-width: 480px; }
                 th, td { padding: 14px 16px; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
                 th { background: #f1f5f9; font-weight: 800; text-align: left; color: #0f172a; font-family: 'Outfit', sans-serif; }
-                .total-box { text-align: right; margin-top: 28px; font-family: 'Outfit', sans-serif; font-size: 1.45rem; font-weight: 900; color: #0284c7; background: #f0f9ff; padding: 16px 20px; border-radius: 12px; border: 1px solid #bae6fd; }
+                .total-box { text-align: right; margin-top: 24px; font-family: 'Outfit', sans-serif; font-size: 1.45rem; font-weight: 900; color: #0284c7; background: #f0f9ff; padding: 16px 20px; border-radius: 12px; border: 1px solid #bae6fd; }
                 .btn-print { background: #0f172a; color: white; border: none; padding: 12px 32px; border-radius: 30px; font-family: 'Outfit', sans-serif; font-weight: 800; cursor: pointer; margin-bottom: 24px; transition: all 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
                 .btn-print:hover { background: #0284c7; transform: translateY(-1px); }
-                @media print { .btn-print { display: none !important; } body { padding: 0; background: white; } .paper { box-shadow: none; padding: 0; border: none; } }
+                
+                @media (max-width: 640px) {
+                    body { padding: 16px 10px; }
+                    .paper { padding: 22px 14px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+                    .header { flex-direction: column; align-items: flex-start; gap: 14px; padding-bottom: 18px; margin-bottom: 18px; }
+                    .proforma-logo { height: 40px; max-width: 210px; }
+                    .meta-box { text-align: left; width: 100%; border-top: 1px solid #e2e8f0; padding-top: 12px; }
+                    .table-container { margin-top: 16px; }
+                    th, td { padding: 10px 8px; font-size: 0.85rem; }
+                    .total-box { font-size: 1.25rem; text-align: center; padding: 14px 10px; }
+                    .btn-print { width: 100%; padding: 14px; font-size: 1rem; }
+                }
+
+                @media print {
+                    .btn-print { display: none !important; }
+                    body { padding: 0; background: white; }
+                    .paper { box-shadow: none; padding: 0; border: none; }
+                    .table-container { border: none; }
+                    table { min-width: 100%; }
+                }
             </style>
         </head>
         <body>
@@ -605,33 +626,35 @@ function generarProforma() {
                 <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Guardar Proforma PDF</button>
                 <div class="header">
                     <div class="logo-box">
-                        <h1>SUNOTE <small>LLANTAS</small></h1>
-                        <p style="margin: 6px 0 0 0; color: #64748b; font-size: 0.9rem;">Garantía y Rendimiento Superior · Bolivia</p>
+                        <img class="proforma-logo" src="img/sunote.png" alt="SUNOTE" onerror="this.style.display='none'">
+                        <p style="margin: 4px 0 0 0; color: #64748b; font-size: 0.88rem;">Garantía y Rendimiento Superior · Bolivia</p>
                     </div>
-                    <div style="text-align: right;">
-                        <h3 style="margin: 0; color: #0284c7; font-family: 'Outfit', sans-serif; font-size: 1.3rem;">PROFORMA COMERCIAL</h3>
-                        <p style="margin: 4px 0 0 0; font-size: 0.95rem;"><strong>N°:</strong> ${docNum}</p>
-                        <p style="margin: 2px 0 0 0; font-size: 0.95rem;"><strong>Fecha:</strong> ${fecha}</p>
+                    <div class="meta-box">
+                        <h3 style="margin: 0; color: #0284c7; font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 800;">PROFORMA COMERCIAL</h3>
+                        <p style="margin: 4px 0 0 0; font-size: 0.92rem;"><strong>N°:</strong> ${docNum}</p>
+                        <p style="margin: 2px 0 0 0; font-size: 0.92rem;"><strong>Fecha:</strong> ${fecha}</p>
                     </div>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width:50px; text-align:center;">#</th>
-                            <th>Detalle de Llanta</th>
-                            <th style="text-align:center; width:90px;">Cant.</th>
-                            <th style="text-align:right; width:130px;">P. Unit</th>
-                            <th style="text-align:right; width:140px;">Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${rowsHtml}
-                    </tbody>
-                </table>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width:40px; text-align:center;">#</th>
+                                <th>Detalle de Llanta</th>
+                                <th style="text-align:center; width:70px;">Cant.</th>
+                                <th style="text-align:right; width:110px;">P. Unit</th>
+                                <th style="text-align:right; width:120px;">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${rowsHtml}
+                        </tbody>
+                    </table>
+                </div>
                 <div class="total-box">
                     TOTAL GENERAL: Bs ${total.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
-                <div style="margin-top: 35px; padding: 18px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 0.88rem; color: #475569; line-height: 1.6;">
+                <div style="margin-top: 28px; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 0.85rem; color: #475569; line-height: 1.6;">
                     ▪ Precios expresados en Bolivianos (BOB) con entrega inmediata.<br>
                     ▪ Proforma válida por 15 días calendario.<br>
                     ▪ Contacto Comercial: (+591) 70612393 / (+591) 65653396.
