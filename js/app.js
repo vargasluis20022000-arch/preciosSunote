@@ -299,6 +299,9 @@ function nuevaCotizacion() {
 // ================================================================
 //  CONSULTA DE STOCK Y PROFORMA POR WHATSAPP (100% EN BOB)
 // ================================================================
+// ================================================================
+//  CONSULTA DE STOCK Y PROFORMA POR WHATSAPP (100% EN BOB)
+// ================================================================
 function abrirModalWhatsApp(event) {
     if (event) event.preventDefault();
 
@@ -307,6 +310,14 @@ function abrirModalWhatsApp(event) {
         alert('⚠️ Selecciona al menos 1 producto con cantidad mayor a 0 (+ / −) para consultar disponibilidad de stock.');
         return;
     }
+
+    // Prellenar datos si ya se guardaron previamente
+    const savedEmpresa = localStorage.getItem('sunote_cliente_empresa') || '';
+    const savedCelular = localStorage.getItem('sunote_cliente_celular') || '';
+    const inputEmpresa = document.getElementById('waQuickEmpresa');
+    const inputCelular = document.getElementById('waQuickCelular');
+    if (inputEmpresa && !inputEmpresa.value) inputEmpresa.value = savedEmpresa;
+    if (inputCelular && !inputCelular.value) inputCelular.value = savedCelular;
 
     const modal = document.getElementById('waModal');
     if (modal) {
@@ -334,6 +345,9 @@ function generarEnlaceProformaDigital(proformaData) {
             d: proformaData.docNum,
             f: proformaData.fecha,
             t: proformaData.total,
+            e: proformaData.clienteEmpresa || '',
+            c: proformaData.clienteCelular || '',
+            ci: proformaData.clienteCiudad || '',
             i: proformaData.items.map(it => ({
                 m: it.modelo,
                 s: it.tamanos,
@@ -346,7 +360,7 @@ function generarEnlaceProformaDigital(proformaData) {
         };
         const jsonStr = JSON.stringify(compact);
         const b64 = btoa(unescape(encodeURIComponent(jsonStr)));
-        let base = 'https://preciosunote.netlify.app/proforma.html';
+        let base = 'https://sunote.vercel.app/proforma.html';
         if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
             const loc = window.location.href.split('?')[0];
             base = loc.replace(/\/[^\/]*$/, '/proforma.html');
@@ -354,7 +368,7 @@ function generarEnlaceProformaDigital(proformaData) {
         return `${base}?d=${encodeURIComponent(b64)}`;
     } catch (e) {
         console.error('Error generando link proforma:', e);
-        return 'https://preciosunote.netlify.app/proforma.html';
+        return 'https://sunote.vercel.app/proforma.html';
     }
 }
 
@@ -365,6 +379,23 @@ function enviarAWhatsApp(telefono) {
         cerrarWaModal();
         return;
     }
+
+    // Obtener datos de empresa y celular
+    const inputEmpresa = document.getElementById('waQuickEmpresa');
+    const inputCelular = document.getElementById('waQuickCelular');
+    let empresa = (inputEmpresa?.value || '').trim() || localStorage.getItem('sunote_cliente_empresa') || '';
+    let celular = (inputCelular?.value || '').trim() || localStorage.getItem('sunote_cliente_celular') || '';
+
+    if (!empresa || !celular) {
+        alert('⚠️ Por favor escribe el nombre de tu empresa o nombre personal y tu número de celular para que el asesor pueda comunicarse contigo.');
+        if (!empresa && inputEmpresa) inputEmpresa.focus();
+        else if (!celular && inputCelular) inputCelular.focus();
+        return;
+    }
+
+    localStorage.setItem('sunote_cliente_empresa', empresa);
+    localStorage.setItem('sunote_cliente_celular', celular);
+    const ciudad = localStorage.getItem('sunote_cliente_ciudad') || '';
 
     const docNum = document.getElementById('docNumber')?.innerText || 'COT-2026-001';
     const fecha = document.getElementById('currentDate')?.innerText || new Date().toLocaleDateString('es-ES');
@@ -389,16 +420,25 @@ function enviarAWhatsApp(telefono) {
     const proformaData = {
         docNum: docNum,
         fecha: fecha,
+        clienteEmpresa: empresa,
+        clienteCelular: celular,
+        clienteCiudad: ciudad,
         total: total,
-        items: items
+        items: items,
+        createdAt: Date.now()
     };
 
     localStorage.setItem('sunote_current_proforma', JSON.stringify(proformaData));
     const proformaUrl = generarEnlaceProformaDigital(proformaData);
 
+    const validezTexto = calcularTextoValidezSabado(proformaData.createdAt);
+
     let mensaje = `*¡Hola! Quisiera consultar la disponibilidad de stock de la siguiente Proforma SUNOTE:*\n\n`;
+    mensaje += `🏢 *EMPRESA / CLIENTE:* ${empresa}\n`;
+    mensaje += `📱 *CELULAR DE CONTACTO:* ${celular}\n`;
     mensaje += `📋 *PROFORMA:* ${docNum}\n`;
-    mensaje += `📅 *FECHA:* ${fecha}\n\n`;
+    mensaje += `📅 *FECHA:* ${fecha}\n`;
+    mensaje += `⏳ *VALIDEZ:* ${validezTexto} (retiro en tienda)\n\n`;
     mensaje += `📦 *DETALLE DE PRODUCTOS:*\n`;
 
     items.forEach((item) => {
@@ -408,7 +448,7 @@ function enviarAWhatsApp(telefono) {
 
     mensaje += `\n💰 *TOTAL ESTIMADO: Bs ${Number(total).toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}*\n\n`;
     mensaje += `📄 *Ver Proforma Oficial Membretada Online:*\n${proformaUrl}\n\n`;
-    mensaje += `¿Tienen stock disponible para entrega inmediata? Quedo atento a su confirmación. ¡Muchas gracias!`;
+    mensaje += `¿Tienen stock disponible? Quedo atento a su respuesta o llamada. ¡Muchas gracias!`;
 
     cerrarWaModal();
     const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
@@ -441,25 +481,103 @@ document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
         closeLightbox();
         cerrarWaModal();
+        cerrarModalDatosProforma();
     }
 });
 
 // ================================================================
 //  VER CATÁLOGO PROFESIONAL (DISEÑO EXACTO AL PDF - 100% EN BOB)
 // ================================================================
-function viewCatalog() {
+function viewCatalog(event) {
     const cotizacionNum = document.getElementById('docNumber')?.innerText || 'COT-2026-001';
     localStorage.setItem('sunote_catalog_doc', cotizacionNum);
-    const win = window.open('catalogo.html', '_blank');
-    if (!win) {
-        alert('⚠️ Por favor permite las ventanas emergentes (popups) en tu navegador para ver el catálogo.');
+    // Si fue llamado sin evento (por ejemplo programáticamente), abrir directamente:
+    if (!event) {
+        const win = window.open('catalogo.html', '_blank');
+        if (!win) {
+            window.location.href = 'catalogo.html';
+        }
     }
 }
 
 // ================================================================
-//  GENERAR PROFORMA COMERCIAL FORMAL (100% EN BOB)
+//  MODAL DE CAPTURA DE DATOS DE EMPRESA Y CELULAR PARA PROFORMA
 // ================================================================
-function generarProforma() {
+function abrirModalDatosProforma() {
+    const seleccionados = productosData.filter(p => (cantidades[p.id] || 0) > 0);
+    if (seleccionados.length === 0) {
+        alert('⚠️ Agrega al menos 1 producto con cantidad mayor a 0 (+ / −) para generar tu proforma.');
+        return;
+    }
+
+    const modal = document.getElementById('proformaClientModal');
+    if (!modal) {
+        // Fallback si no está el modal en el DOM
+        generarProforma();
+        return;
+    }
+
+    // Prellenar con datos previamente guardados
+    const inputEmpresa = document.getElementById('inputClienteEmpresa');
+    const inputCelular = document.getElementById('inputClienteCelular');
+    const inputCiudad = document.getElementById('inputClienteCiudad');
+
+    if (inputEmpresa) inputEmpresa.value = localStorage.getItem('sunote_cliente_empresa') || '';
+    if (inputCelular) inputCelular.value = localStorage.getItem('sunote_cliente_celular') || '';
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // Foco inteligente en el campo que falte
+    setTimeout(() => {
+        if (inputEmpresa && !inputEmpresa.value) {
+            inputEmpresa.focus();
+        } else if (inputCelular && !inputCelular.value) {
+            inputCelular.focus();
+        }
+    }, 150);
+}
+
+function cerrarModalDatosProforma(event) {
+    if (event && event.target && event.target.closest('.proforma-modal-card') && !event.target.classList.contains('proforma-modal-close')) {
+        return;
+    }
+    const modal = document.getElementById('proformaClientModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+function confirmarGenerarProforma(event) {
+    if (event) event.preventDefault();
+
+    const empresa = (document.getElementById('inputClienteEmpresa')?.value || '').trim();
+    const celular = (document.getElementById('inputClienteCelular')?.value || '').trim();
+
+    if (!empresa) {
+        alert('⚠️ Por favor ingresa el nombre de tu empresa o nombre personal.');
+        document.getElementById('inputClienteEmpresa')?.focus();
+        return;
+    }
+    if (!celular) {
+        alert('⚠️ Por favor ingresa tu número de celular para poder contactarte.');
+        document.getElementById('inputClienteCelular')?.focus();
+        return;
+    }
+
+    // Guardar para futuros usos
+    localStorage.setItem('sunote_cliente_empresa', empresa);
+    localStorage.setItem('sunote_cliente_celular', celular);
+
+    cerrarModalDatosProforma();
+    generarProformaConDatos(empresa, celular);
+}
+
+// ================================================================
+//  GENERAR PROFORMA COMERCIAL FORMAL CON DATOS DEL CLIENTE
+// ================================================================
+function generarProformaConDatos(empresa, celular) {
     const seleccionados = productosData.filter(p => (cantidades[p.id] || 0) > 0);
     if (seleccionados.length === 0) {
         alert('⚠️ Agrega al menos 1 producto con cantidad mayor a 0 (+ / −) para generar la proforma.');
@@ -488,15 +606,49 @@ function generarProforma() {
     const proformaData = {
         docNum: docNum,
         fecha: fecha,
+        clienteEmpresa: empresa || 'Empresa / Cliente Particular',
+        clienteCelular: celular || '',
         total: total,
-        items: items
+        items: items,
+        createdAt: Date.now()
     };
 
     localStorage.setItem('sunote_current_proforma', JSON.stringify(proformaData));
-    const win = window.open('proforma.html', '_blank');
+    const compactParam = encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify({
+        d: proformaData.docNum,
+        f: proformaData.fecha,
+        t: proformaData.total,
+        e: proformaData.clienteEmpresa || '',
+        c: proformaData.clienteCelular || '',
+        i: (proformaData.items || []).map(it => ({
+            m: it.modelo, s: it.tamanos, p: it.pr, d: it.descripcion || '', q: it.cantidad, u: it.precioUnitario, t: it.subtotal
+        }))
+    })))));
+    const openUrl = `proforma.html?d=${compactParam}`;
+    const win = window.open(openUrl, '_blank');
     if (!win) {
-        alert('⚠️ Por favor permite las ventanas emergentes (popups) en tu navegador para ver la proforma.');
+        window.location.href = openUrl;
     }
+}
+
+function calcularTextoValidezSabado(timestamp) {
+    const d = timestamp ? new Date(timestamp) : new Date();
+    const dia = d.getDay(); // 0 Dom, 1 Lun, ..., 6 Sab
+    const diasHastaSabado = (6 - dia + 7) % 7;
+    const sab = new Date(d);
+    sab.setDate(d.getDate() + diasHastaSabado);
+    const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    const textoSab = `${sab.getDate()} de ${meses[sab.getMonth()]}`;
+    if (diasHastaSabado === 0) {
+        return `Válida únicamente por hoy sábado (${textoSab})`;
+    } else {
+        return `Válida hasta el sábado (${textoSab})`;
+    }
+}
+
+// Función legacy/directa
+function generarProforma() {
+    abrirModalDatosProforma();
 }
 
 // ========== INICIALIZACIÓN INMEDIATA ==========
@@ -505,3 +657,4 @@ document.addEventListener('DOMContentLoaded', function () {
     renderGrid();
     fetchLiveDollarRate(); // Consulta automática diaria
 });
+

@@ -4,20 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Propuesta SUNOTE · Llantas</title>
-    <!-- Metadatos y Vista Previa para WhatsApp / Redes Sociales (Open Graph) -->
-    <meta name="description" content="Catálogo oficial de llantas SUNOTE y cotizador interactivo en línea. Consulta precios mayoristas y genera tu proforma con membrete al instante.">
+    <title>Llantas para Camión SUNOTE · Catálogo y Precios Mayoristas en Bolivia</title>
+    <!-- Metadatos SEO para Google y Redes Sociales -->
+    <meta name="description" content="Venta de llantas para camión y transporte pesado SUNOTE en Bolivia. Medidas 295/80, 315/80, 275/70. Cotizador en línea de precios y catálogo oficial.">
+    <meta name="keywords" content="llantas, llantas para camion, llantas bolivia, llantas sunote, llantas 295 80 r22.5, llantas 315 80 r22.5, llantas transporte pesado, precios llantas bolivia, catalogo sunote">
+    <meta name="robots" content="index, follow">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="SUNOTE Llantas">
-    <meta property="og:title" content="Propuesta SUNOTE · Llantas">
-    <meta property="og:description" content="Catálogo oficial de llantas SUNOTE y cotizador interactivo. Consulta precios mayoristas y genera tu proforma membretada al instante.">
-    <meta property="og:url" content="https://vargasluis20022000-arch.github.io/preciosSunote/">
-    <meta property="og:image" content="https://raw.githubusercontent.com/vargasluis20022000-arch/preciosSunote/main/img/og-preview.jpg">
-    <meta property="og:image:secure_url" content="https://raw.githubusercontent.com/vargasluis20022000-arch/preciosSunote/main/img/og-preview.jpg">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="SUNOTE - Catálogo de Llantas y Cotizador">
+    <meta property="og:site_name" content="SUNOTE Llantas Bolivia">
+    <meta property="og:title" content="Llantas para Camión SUNOTE · Precios y Catálogo">
+    <meta property="og:description" content="Catálogo oficial y cotizador de llantas para camión y flotas SUNOTE. Consulta precios y disponibilidad para retiro en tienda.">
+    <meta property="og:image" content="img/og-preview.jpg">
+    <meta property="og:image:alt" content="Llantas para Camión SUNOTE Bolivia">ador">
 
     <!-- Favicon / Ícono del Puma de SUNOTE para pestaña y móvil -->
     <link rel="icon" type="image/png"
@@ -43,6 +40,12 @@
             </div>
             <div class="header-right">
                 <div class="contact-info no-print">
+                    <a class="maps-link"
+                        href="https://maps.app.goo.gl/toY3XgeCw8wYBZ199"
+                        target="_blank"
+                        title="Ver ubicación exacta de la tienda en Google Maps">
+                        <span>📍 Ver Tienda en Google Maps</span>
+                    </a>
                     <a class="wa-link"
                         href="https://wa.me/59170612393?text=Hola%2C%20me%20interesa%20preguntar%20por%20las%20llantas%20SUNOTE"
                         target="_blank">
@@ -71,8 +74,9 @@
                         </svg>
                         <span>Consultar Stock WhatsApp</span>
                     </button>
-                    <button class="btn btn-success" onclick="generarProforma()">📄 Proforma</button>
-                    <button class="btn btn-primary" onclick="viewCatalog()">📋 Ver Catálogo</button>
+                    <button class="btn btn-success" onclick="abrirModalDatosProforma()">📄 Proforma</button>
+                    <a href="catalogo.html" target="_blank" class="btn btn-primary" onclick="viewCatalog(event)"
+                        style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">📋 Ver Catálogo</a>
                 </div>
             </div>
         </header>
@@ -196,6 +200,47 @@
         </div>
     </div>
 
+    <!-- ===== MODAL DATOS DE EMPRESA Y CONTACTO PARA PROFORMA ===== -->
+    <div class="proforma-modal" id="proformaClientModal" onclick="cerrarModalDatosProforma(event)">
+        <div class="proforma-modal-card" onclick="event.stopPropagation()">
+            <div class="proforma-modal-header">
+                <div class="proforma-modal-title-group">
+                    <span class="proforma-modal-icon">🏢</span>
+                    <div>
+                        <h3>Datos para tu Proforma Oficial</h3>
+                        <p>Por favor ingresa el nombre de tu empresa o persona y tu celular para personalizar tu cotización y coordinar contigo:</p>
+                    </div>
+                </div>
+                <button class="proforma-modal-close" onclick="cerrarModalDatosProforma()">✕</button>
+            </div>
+            <form id="proformaClientForm" onsubmit="confirmarGenerarProforma(event)">
+                <div class="proforma-form-body">
+                    <div class="form-group">
+                        <label for="inputClienteEmpresa">
+                            <span>🏢 Empresa o Nombre Solicitante:</span> <strong class="req-star">*</strong>
+                        </label>
+                        <input type="text" id="inputClienteEmpresa" class="form-input"
+                            placeholder="Ej. Transportes El Sol S.R.L. / Juan Pérez" required autocomplete="organization">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputClienteCelular">
+                            <span>📱 Número de Celular / WhatsApp:</span> <strong class="req-star">*</strong>
+                        </label>
+                        <input type="tel" id="inputClienteCelular" class="form-input"
+                            placeholder="Ej. 70612393 o 65653396" required autocomplete="tel">
+                    </div>
+                    <div class="proforma-modal-actions">
+                        <button type="button" class="btn-modal-cancel" onclick="cerrarModalDatosProforma()">Cancelar</button>
+                        <button type="submit" class="btn-modal-submit">
+                            <span>Generar Proforma Oficial</span>
+                            <span style="font-size:1.15rem;">➜</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- ===== MODAL ASESOR WHATSAPP ===== -->
     <div class="wa-modal" id="waModal" onclick="cerrarWaModal(event)">
         <div class="wa-modal-card" onclick="event.stopPropagation()">
@@ -213,32 +258,46 @@
                 <button class="wa-modal-close" onclick="cerrarWaModal()">✕</button>
             </div>
             <div class="wa-modal-body">
-                <button class="wa-advisor-btn wa-pdf-highlight-btn" onclick="enviarAWhatsApp('59170612393')">
-                    <div class="wa-advisor-left">
-                        <svg class="wa-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                            <path
-                                d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z" />
-                        </svg>
-                        <div class="wa-advisor-data">
-                            <strong>Asesor Comercial 1</strong>
-                            <span>(+591) 70612393 · Incluye Proforma Digital Oficial</span>
-                        </div>
+                <!-- Datos rápidos de la empresa para WhatsApp -->
+                <div class="wa-client-inputs-box">
+                    <div class="wa-input-row">
+                        <label for="waQuickEmpresa">🏢 Tu Empresa o Nombre: <strong class="req-star">*</strong></label>
+                        <input type="text" id="waQuickEmpresa" placeholder="Ej. Transportes El Sol / Juan Pérez" class="wa-mini-input">
                     </div>
-                    <span class="wa-advisor-arrow">➜</span>
-                </button>
-                <button class="wa-advisor-btn wa-pdf-highlight-btn" onclick="enviarAWhatsApp('59165653396')">
-                    <div class="wa-advisor-left">
-                        <svg class="wa-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                            <path
-                                d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z" />
-                        </svg>
-                        <div class="wa-advisor-data">
-                            <strong>Asesor Comercial 2</strong>
-                            <span>(+591) 65653396 · Incluye Proforma Digital Oficial</span>
-                        </div>
+                    <div class="wa-input-row">
+                        <label for="waQuickCelular">📱 Tu Celular / WhatsApp: <strong class="req-star">*</strong></label>
+                        <input type="tel" id="waQuickCelular" placeholder="Ej. 70612345" class="wa-mini-input">
                     </div>
-                    <span class="wa-advisor-arrow">➜</span>
-                </button>
+                </div>
+
+                <div class="wa-advisors-list">
+                    <button class="wa-advisor-btn wa-pdf-highlight-btn" onclick="enviarAWhatsApp('59170612393')">
+                        <div class="wa-advisor-left">
+                            <svg class="wa-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path
+                                    d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z" />
+                            </svg>
+                            <div class="wa-advisor-data">
+                                <strong>Asesor Comercial 1</strong>
+                                <span>(+591) 70612393 · Incluye Proforma Digital Oficial</span>
+                            </div>
+                        </div>
+                        <span class="wa-advisor-arrow">➜</span>
+                    </button>
+                    <button class="wa-advisor-btn wa-pdf-highlight-btn" onclick="enviarAWhatsApp('59165653396')">
+                        <div class="wa-advisor-left">
+                            <svg class="wa-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path
+                                    d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z" />
+                            </svg>
+                            <div class="wa-advisor-data">
+                                <strong>Asesor Comercial 2</strong>
+                                <span>(+591) 65653396 · Incluye Proforma Digital Oficial</span>
+                            </div>
+                        </div>
+                        <span class="wa-advisor-arrow">➜</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

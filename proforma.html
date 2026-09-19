@@ -11,8 +11,8 @@
     <meta property="og:site_name" content="SUNOTE Llantas">
     <meta property="og:title" content="Proforma Digital Membretada · SUNOTE">
     <meta property="og:description" content="Consulta tu cotización oficial de llantas SUNOTE en línea con precios y descuentos detallados.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/vargasluis20022000-arch/preciosSunote/main/img/og-preview.jpg">
-    <meta property="og:image:secure_url" content="https://raw.githubusercontent.com/vargasluis20022000-arch/preciosSunote/main/img/og-preview.jpg">
+    <meta property="og:image" content="https://vargasluis20022000-arch.github.io/preciosSunote/img/og-preview.jpg">
+    <meta property="og:image:secure_url" content="https://vargasluis20022000-arch.github.io/preciosSunote/img/og-preview.jpg">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -510,8 +510,242 @@
             }
         }
 
+        /* Bloque Membretado Datos del Cliente */
+        .client-info-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #0284c7;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+
+        .client-info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+
+        .client-info-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #0284c7;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-edit-client {
+            background: white;
+            border: 1px solid #cbd5e1;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-edit-client:hover {
+            border-color: #0284c7;
+            color: #0284c7;
+            background: #f0f9ff;
+        }
+
+        .client-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+        }
+
+        .client-field {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .client-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #64748b;
+            letter-spacing: 0.3px;
+        }
+
+        .client-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        /* Modal Edición de Datos */
+        .proforma-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
+            z-index: 100000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+        }
+
+        .proforma-modal.active {
+            display: flex;
+        }
+
+        .proforma-modal-card {
+            background: white;
+            border-radius: 20px;
+            max-width: 480px;
+            width: 100%;
+            padding: 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .proforma-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 12px;
+        }
+
+        .proforma-modal-title-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .proforma-modal-icon {
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        .proforma-modal-title-group h3 {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .proforma-modal-title-group p {
+            margin: 4px 0 0 0;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .proforma-modal-close {
+            background: #f1f5f9;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #64748b;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .proforma-modal-close:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 6px;
+        }
+
+        .req-star {
+            color: #ef4444;
+        }
+
+        .opc-tag {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: #94a3b8;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+
+        .proforma-modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 22px;
+        }
+
+        .btn-modal-cancel {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            padding: 11px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-modal-submit {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white;
+            border: none;
+            padding: 11px 24px;
+            border-radius: 25px;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+        }
         @media print {
-            .btn-print {
+            .btn-print, .btn-edit-client, .proforma-modal {
                 display: none !important;
             }
 
@@ -524,6 +758,12 @@
                 box-shadow: none;
                 padding: 0;
                 border: none;
+            }
+
+            .client-info-card {
+                background: white !important;
+                border: 1px solid #cbd5e1 !important;
+                border-left: 4px solid #0284c7 !important;
             }
 
             .table-container {
@@ -553,6 +793,11 @@
             <div class="logo-box">
                 <img class="proforma-logo" src="img/sunote.png" alt="SUNOTE" onerror="this.style.display='none'">
                 <p style="margin: 4px 0 0 0; color: #64748b; font-size: 0.88rem;">Garantía y Rendimiento Superior · Bolivia</p>
+                <p style="margin: 3px 0 0 0; font-size: 0.84rem;">
+                    <a href="https://maps.app.goo.gl/toY3XgeCw8wYBZ199" target="_blank" style="color: #0284c7; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                        <span>📍 Ver Tienda Física en Google Maps ↗</span>
+                    </a>
+                </p>
             </div>
             <div class="meta-box">
                 <h3 style="margin: 0; color: #0284c7; font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 800;">PROFORMA COMERCIAL</h3>
@@ -560,6 +805,30 @@
                 <p style="margin: 2px 0 0 0; font-size: 0.92rem;"><strong>Fecha:</strong> <span id="fechaText"></span></p>
             </div>
         </div>
+
+        <!-- DATOS DEL CLIENTE / SOLICITANTE -->
+        <div class="client-info-card">
+            <div class="client-info-header">
+                <div class="client-info-title">
+                    <span class="client-icon">🏢</span>
+                    <strong>DATOS DEL CLIENTE / SOLICITANTE</strong>
+                </div>
+                <button class="btn-edit-client no-print" onclick="abrirModalEditarCliente()" title="Modificar datos de empresa o celular">
+                    ✏️ Modificar Datos
+                </button>
+            </div>
+            <div class="client-info-grid">
+                <div class="client-field">
+                    <span class="client-label">Empresa / Razón Social:</span>
+                    <strong class="client-value" id="clienteEmpresaText">Empresa / Cliente Particular</strong>
+                </div>
+                <div class="client-field">
+                    <span class="client-label">Número Celular / WhatsApp:</span>
+                    <strong class="client-value" id="clienteCelularText">No especificado</strong>
+                </div>
+            </div>
+        </div>
+
         <div class="table-container">
             <table>
                 <thead>
@@ -579,25 +848,73 @@
         <div class="total-box" id="proformaTotalBox">
             TOTAL GENERAL: Bs 0.00
         </div>
-        <div style="margin-top: 28px; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 0.85rem; color: #475569; line-height: 1.8;">
-            ▪ Precios expresados en Bolivianos (BOB) con entrega inmediata.<br>
-            ▪ Proforma válida por 15 días calendario.<br>
-            ▪ Contacto Comercial Directo: 
-            <a class="wa-inline" href="https://wa.me/59170612393?text=Hola%2C%20quisiera%20consultar%20por%20la%20proforma%20SUNOTE" target="_blank">
-                <svg class="wa-icon" viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
-                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
-                </svg>
-                (+591) 70612393
-            </a>
-            <a class="wa-inline" href="https://wa.me/59165653396?text=Hola%2C%20quisiera%20consultar%20por%20la%20proforma%20SUNOTE" target="_blank">
-                <svg class="wa-icon" viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
-                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
-                </svg>
-                (+591) 65653396
-            </a>
+        <div style="margin-top: 28px; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 0.85rem; color: #475569; line-height: 1.8; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div style="flex: 1; min-width: 260px;">
+                ▪ Precios expresados en Bolivianos (BOB) · Retiro directo en almacén / tienda física.<br>
+                <span id="validezProformaText">▪ Cotización y stock válidos hasta el sábado de esta semana.</span><br>
+                ▪ 📍 <strong>Ubicación de Tienda Física:</strong> 
+                <a class="maps-inline" href="https://maps.app.goo.gl/toY3XgeCw8wYBZ199" target="_blank" style="color:#0284c7; font-weight:700; text-decoration:none;">
+                    Abrir en Google Maps (Cómo llegar) ↗
+                </a><br>
+                ▪ Contacto Comercial Directo: 
+                <a class="wa-inline" href="https://wa.me/59170612393?text=Hola%2C%20quisiera%20consultar%20por%20la%20proforma%20SUNOTE" target="_blank">
+                    <svg class="wa-icon" viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+                        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
+                    </svg>
+                    (+591) 70612393
+                </a>
+                <a class="wa-inline" href="https://wa.me/59165653396?text=Hola%2C%20quisiera%20consultar%20por%20la%20proforma%20SUNOTE" target="_blank">
+                    <svg class="wa-icon" viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+                        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43l-.48-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.79.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
+                    </svg>
+                    (+591) 65653396
+                </a>
+            </div>
+            <div style="text-align: center; border-left: 1px solid #e2e8f0; padding-left: 16px; min-width: 110px;">
+                <a href="https://maps.app.goo.gl/toY3XgeCw8wYBZ199" target="_blank" style="text-decoration:none;">
+                    <img src="img/qr-ubicacion.png" alt="QR Ubicación Tienda" style="width: 82px; height: 82px; border-radius: 8px; border: 1px solid #cbd5e1; display:block; margin:0 auto;" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https%3A%2F%2Fmaps.app.goo.gl%2FtoY3XgeCw8wYBZ199'">
+                    <span style="display:block; font-size: 0.72rem; font-weight: 700; color: #0284c7; margin-top: 4px;">📍 QR Tienda Física</span>
+                </a>
+            </div>
         </div>
         </div><!-- fin #proformaPrintableArea -->
     </div><!-- fin .paper -->
+
+    <!-- ===== MODAL EDITAR DATOS DEL CLIENTE ===== -->
+    <div class="proforma-modal" id="editClientModal" onclick="cerrarModalEditarCliente(event)">
+        <div class="proforma-modal-card" onclick="event.stopPropagation()">
+            <div class="proforma-modal-header">
+                <div class="proforma-modal-title-group">
+                    <span class="proforma-modal-icon">✏️</span>
+                    <div>
+                        <h3>Modificar Datos del Cliente</h3>
+                        <p>Actualiza los datos de tu empresa o contacto para esta proforma oficial:</p>
+                    </div>
+                </div>
+                <button class="proforma-modal-close" onclick="cerrarModalEditarCliente()">✕</button>
+            </div>
+            <form onsubmit="guardarEdicionCliente(event)">
+                <div class="proforma-form-body">
+                    <div class="form-group">
+                        <label for="editEmpresaInput">
+                            <span>🏢 Empresa o Nombre Solicitante:</span> <strong class="req-star">*</strong>
+                        </label>
+                        <input type="text" id="editEmpresaInput" class="form-input" required autocomplete="organization">
+                    </div>
+                    <div class="form-group">
+                        <label for="editCelularInput">
+                            <span>📱 Número Celular / WhatsApp:</span> <strong class="req-star">*</strong>
+                        </label>
+                        <input type="tel" id="editCelularInput" class="form-input" required autocomplete="tel">
+                    </div>
+                    <div class="proforma-modal-actions">
+                        <button type="button" class="btn-modal-cancel" onclick="cerrarModalEditarCliente()">Cancelar</button>
+                        <button type="submit" class="btn-modal-submit">Guardar Cambios</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- ===== MODAL ASESOR WHATSAPP ===== -->
     <div class="wa-modal" id="waModal" onclick="cerrarWaModal(event)">
@@ -669,6 +986,9 @@
                         cachedProformaData = {
                             docNum: parsed.docNum || parsed.d || 'COT-2026-001',
                             fecha: parsed.fecha || parsed.f || new Date().toLocaleDateString('es-ES'),
+                            clienteEmpresa: parsed.clienteEmpresa || parsed.e || localStorage.getItem('sunote_cliente_empresa') || 'Empresa / Cliente Particular',
+                            clienteCelular: parsed.clienteCelular || parsed.c || localStorage.getItem('sunote_cliente_celular') || '',
+                            clienteCiudad: parsed.clienteCiudad || parsed.ci || localStorage.getItem('sunote_cliente_ciudad') || '',
                             total: parsed.total || parsed.t || 0,
                             items: (parsed.items || parsed.i || []).map(item => ({
                                 modelo: item.modelo || item.m,
@@ -699,6 +1019,7 @@
 
                 if (!cachedProformaData) return;
 
+                // Cargar datos principales
                 if (cachedProformaData.docNum) {
                     document.getElementById('docNumText').innerText = cachedProformaData.docNum;
                     document.title = 'Proforma Comercial - ' + cachedProformaData.docNum;
@@ -706,6 +1027,10 @@
                 if (cachedProformaData.fecha) {
                     document.getElementById('fechaText').innerText = cachedProformaData.fecha;
                 }
+
+                // Renderizar datos del cliente
+                actualizarVistaCliente();
+                actualizarValidezSabado();
 
                 const tbody = document.getElementById('proformaTableBody');
                 if (tbody && cachedProformaData.items && cachedProformaData.items.length > 0) {
@@ -732,7 +1057,109 @@
             } catch (err) {
                 console.error('Error cargando proforma:', err);
             }
+            actualizarValidezSabado();
         });
+
+        function calcularValidezSabado(fechaRef) {
+            let fecha = new Date();
+            if (fechaRef) {
+                if (typeof fechaRef === 'number') {
+                    fecha = new Date(fechaRef);
+                } else if (fechaRef instanceof Date && !isNaN(fechaRef)) {
+                    fecha = fechaRef;
+                } else if (typeof fechaRef === 'string') {
+                    const parsed = Date.parse(fechaRef);
+                    if (!isNaN(parsed)) {
+                        fecha = new Date(parsed);
+                    }
+                }
+            }
+
+            const diaSemana = fecha.getDay(); // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
+            const diasHastaSabado = (6 - diaSemana + 7) % 7;
+
+            const sabado = new Date(fecha.getTime());
+            sabado.setDate(sabado.getDate() + diasHastaSabado);
+
+            const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+            const diaNum = sabado.getDate();
+            const mesNom = meses[sabado.getMonth()];
+            const anioNum = sabado.getFullYear();
+            const fechaSabadoTexto = `${diaNum} de ${mesNom} de ${anioNum}`;
+
+            if (diasHastaSabado === 0) {
+                return `▪ Cotización y stock válidos únicamente por hoy sábado, ${fechaSabadoTexto} (horario de atención en tienda).`;
+            } else {
+                return `▪ Precios y cotización válidos hasta el sábado, ${fechaSabadoTexto} (retiro directo en almacén / tienda física).`;
+            }
+        }
+
+        function actualizarValidezSabado() {
+            const el = document.getElementById('validezProformaText');
+            if (el) {
+                const ref = cachedProformaData?.createdAt || cachedProformaData?.fecha;
+                el.innerText = calcularValidezSabado(ref);
+            }
+        }
+
+        function actualizarVistaCliente() {
+            const empresa = cachedProformaData?.clienteEmpresa || localStorage.getItem('sunote_cliente_empresa') || 'Empresa / Cliente Particular';
+            const celular = cachedProformaData?.clienteCelular || localStorage.getItem('sunote_cliente_celular') || 'No especificado';
+
+            const elEmpresa = document.getElementById('clienteEmpresaText');
+            const elCelular = document.getElementById('clienteCelularText');
+
+            if (elEmpresa) elEmpresa.innerText = empresa;
+            if (elCelular) elCelular.innerText = celular;
+        }
+
+        function abrirModalEditarCliente() {
+            const modal = document.getElementById('editClientModal');
+            const inputEmpresa = document.getElementById('editEmpresaInput');
+            const inputCelular = document.getElementById('editCelularInput');
+
+            if (inputEmpresa) inputEmpresa.value = cachedProformaData?.clienteEmpresa || localStorage.getItem('sunote_cliente_empresa') || '';
+            if (inputCelular) inputCelular.value = cachedProformaData?.clienteCelular || localStorage.getItem('sunote_cliente_celular') || '';
+
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function cerrarModalEditarCliente(event) {
+            if (event && event.target && event.target.closest('.proforma-modal-card') && !event.target.classList.contains('proforma-modal-close')) {
+                return;
+            }
+            const modal = document.getElementById('editClientModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function guardarEdicionCliente(event) {
+            if (event) event.preventDefault();
+
+            const nuevaEmpresa = (document.getElementById('editEmpresaInput')?.value || '').trim();
+            const nuevoCelular = (document.getElementById('editCelularInput')?.value || '').trim();
+
+            if (!nuevaEmpresa || !nuevoCelular) {
+                alert('⚠️ Por favor ingresa el nombre de la empresa y tu número de celular.');
+                return;
+            }
+
+            if (!cachedProformaData) cachedProformaData = {};
+            cachedProformaData.clienteEmpresa = nuevaEmpresa;
+            cachedProformaData.clienteCelular = nuevoCelular;
+
+            localStorage.setItem('sunote_cliente_empresa', nuevaEmpresa);
+            localStorage.setItem('sunote_cliente_celular', nuevoCelular);
+            localStorage.setItem('sunote_current_proforma', JSON.stringify(cachedProformaData));
+
+            actualizarVistaCliente();
+            cerrarModalEditarCliente();
+        }
 
         async function compartirProformaPDF(advisorPhone) {
             if (isSharingPdf) return;
@@ -745,6 +1172,7 @@
             }
 
             const docNum = document.getElementById('docNumText')?.innerText || 'COT-2026-001';
+            const empresa = cachedProformaData?.clienteEmpresa || localStorage.getItem('sunote_cliente_empresa') || 'Cliente';
             const filename = `Proforma_SUNOTE_${docNum}.pdf`;
 
             const btn = document.getElementById('btnSharePdf');
@@ -765,25 +1193,25 @@
 
                 const pdfBlob = await html2pdf().set(opt).from(element).output('blob');
                 const file = new File([pdfBlob], filename, { type: 'application/pdf' });
+                const proformaUrl = generarEnlaceProformaDigital(cachedProformaData);
 
-                const mensaje = `¡Hola! Le comparto la *Proforma oficial SUNOTE N° ${docNum}* en formato PDF para consultar disponibilidad de stock de llantas.`;
+                const mensaje = `¡Hola! Le comparto la *Proforma oficial SUNOTE N° ${docNum}* de la empresa *${empresa}* en formato PDF para consultar disponibilidad de stock de llantas.\n\n📄 *Ver Proforma Online:*\n${proformaUrl}`;
 
-                // 1. Si el dispositivo soporta compartir archivos directamente (Móviles Android / iPhone con WhatsApp):
+                // 1. Si el dispositivo soporta compartir archivos directamente:
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     try {
                         await navigator.share({
-                            title: `Proforma SUNOTE ${docNum}`,
+                            title: `Proforma SUNOTE ${docNum} - ${empresa}`,
                             text: mensaje,
                             files: [file]
                         });
                         return;
                     } catch (shareErr) {
-                        if (shareErr.name === 'AbortError') return; // Usuario canceló
+                        if (shareErr.name === 'AbortError') return;
                     }
                 }
 
-                // 2. Si estamos en PC / Escritorio (WhatsApp Web):
-                // Descargamos el archivo PDF automáticamente
+                // 2. Si estamos en PC / Escritorio:
                 const blobUrl = URL.createObjectURL(pdfBlob);
                 const a = document.createElement('a');
                 a.href = blobUrl;
@@ -793,9 +1221,14 @@
                 document.body.removeChild(a);
                 setTimeout(() => URL.revokeObjectURL(blobUrl), 3000);
 
-                // Abrir chat de WhatsApp con el asesor
                 const phone = advisorPhone || '59170612393';
-                const msgDesktop = `*¡Hola!* Le adjunto la *Proforma SUNOTE N° ${docNum}* en formato PDF para consultar disponibilidad de stock de llantas. (El archivo PDF se descargó para adjuntarlo).`;
+                const celular = cachedProformaData?.clienteCelular || localStorage.getItem('sunote_cliente_celular') || '';
+                let msgDesktop = `*¡Hola!* Le adjunto la *Proforma SUNOTE N° ${docNum}* en formato PDF para consultar disponibilidad de stock de llantas.\n\n`;
+                msgDesktop += `🏢 *EMPRESA / CLIENTE:* ${empresa}\n`;
+                if (celular) msgDesktop += `📱 *CELULAR DE CONTACTO:* ${celular}\n`;
+                msgDesktop += `📄 *Ver Proforma Oficial Membretada Online:*\n${proformaUrl}\n\n`;
+                msgDesktop += `(El archivo PDF oficial se descargó para adjuntarlo en este chat).`;
+
                 const url = `https://wa.me/${phone}?text=${encodeURIComponent(msgDesktop)}`;
                 window.open(url, '_blank');
 
@@ -852,11 +1285,19 @@
 
             const docNum = cachedProformaData.docNum || 'COT-2026-001';
             const fecha = cachedProformaData.fecha || new Date().toLocaleDateString('es-ES');
+            const empresa = cachedProformaData.clienteEmpresa || localStorage.getItem('sunote_cliente_empresa') || 'Empresa / Cliente Particular';
+            const celular = cachedProformaData.clienteCelular || localStorage.getItem('sunote_cliente_celular') || '';
+            const ciudad = cachedProformaData.clienteCiudad || localStorage.getItem('sunote_cliente_ciudad') || '';
             let total = 0;
 
+            const validezTexto = calcularValidezSabado(cachedProformaData.createdAt || cachedProformaData.fecha).replace('▪ ', '');
+
             let mensaje = `*¡Hola! Quisiera consultar la disponibilidad de stock de la siguiente Proforma SUNOTE:*\n\n`;
+            mensaje += `🏢 *EMPRESA / CLIENTE:* ${empresa}\n`;
+            if (celular) mensaje += `📱 *CELULAR DE CONTACTO:* ${celular}\n`;
             mensaje += `📋 *PROFORMA:* ${docNum}\n`;
-            mensaje += `📅 *FECHA:* ${fecha}\n\n`;
+            mensaje += `📅 *FECHA:* ${fecha}\n`;
+            mensaje += `⏳ *VALIDEZ:* ${validezTexto}\n\n`;
             mensaje += `📦 *DETALLE DE PRODUCTOS:*\n`;
 
             cachedProformaData.items.forEach(item => {
@@ -865,18 +1306,54 @@
                 mensaje += `   P. Unit: Bs ${Number(item.precioUnitario).toLocaleString('es-BO', { minimumFractionDigits: 2 })} | Subtotal: *Bs ${Number(item.subtotal).toLocaleString('es-BO', { minimumFractionDigits: 2 })}*\n`;
             });
 
-            const currentUrl = window.location.href;
+            const proformaUrl = generarEnlaceProformaDigital(cachedProformaData);
             mensaje += `\n💰 *TOTAL ESTIMADO: Bs ${Number(total).toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}*\n\n`;
-            mensaje += `📄 *Ver Proforma Oficial Membretada Online:*\n${currentUrl}\n\n`;
-            mensaje += `¿Tienen stock disponible para entrega inmediata? Quedo atento a su confirmación. ¡Muchas gracias!`;
+            mensaje += `📄 *Ver Proforma Oficial Membretada Online:*\n${proformaUrl}\n\n`;
+            mensaje += `¿Tienen stock disponible? Quedo atento a su llamada o respuesta. ¡Muchas gracias!`;
 
             cerrarWaModal();
             const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
         }
 
+        function generarEnlaceProformaDigital(data) {
+            if (!data) return 'https://sunote.vercel.app/proforma.html';
+            try {
+                const compact = {
+                    d: data.docNum,
+                    f: data.fecha,
+                    t: data.total,
+                    e: data.clienteEmpresa || '',
+                    c: data.clienteCelular || '',
+                    i: (data.items || []).map(it => ({
+                        m: it.modelo,
+                        s: it.tamanos,
+                        p: it.pr,
+                        d: it.descripcion || '',
+                        q: it.cantidad,
+                        u: it.precioUnitario,
+                        t: it.subtotal
+                    }))
+                };
+                const jsonStr = JSON.stringify(compact);
+                const b64 = btoa(unescape(encodeURIComponent(jsonStr)));
+                let base = 'https://sunote.vercel.app/proforma.html';
+                if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+                    const loc = window.location.href.split('?')[0];
+                    base = loc.replace(/\/[^\/]*$/, '/proforma.html');
+                }
+                return `${base}?d=${encodeURIComponent(b64)}`;
+            } catch (e) {
+                console.error('Error generando enlace digital:', e);
+                return 'https://sunote.vercel.app/proforma.html';
+            }
+        }
+
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') cerrarWaModal();
+            if (e.key === 'Escape') {
+                cerrarWaModal();
+                cerrarModalEditarCliente();
+            }
         });
     </script>
 </body>
